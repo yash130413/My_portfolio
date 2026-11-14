@@ -43,14 +43,6 @@ function LinkedinIcon({ className = "h-4 w-4" }: { className?: string }) {
   )
 }
 
-function GfgIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M19.8 10.6c-.3-1.4-1.2-2.5-2.4-3.2-1.2-.7-2.7-.9-4.1-.5l-.8.2c-.3-.8-.7-1.5-1.3-2.1C9.9 3.8 8.1 3 6.2 3.3 4.3 3.6 2.6 4.9 1.7 6.6.9 8.4.8 10.5 1.7 12.3c.8 1.8 2.5 3.1 4.4 3.4.6.1 1.2.1 1.8 0 .4.8 1 1.5 1.8 2.1 1.3 1 3 1.3 4.6 1 .9-.2 1.8-.7 2.5-1.3.7-.7 1.2-1.5 1.5-2.4l1.5.3c1.4.3 2.8 0 4-.8 1.1-.8 1.8-2 2-3.4.2-1.4-.2-2.8-1-3.9-.8-1-2-1.7-3.4-1.8l-1.9-.2zm-12.7 3c-1.1-.2-2.1-1-2.6-2-.5-1-.5-2.2-.1-3.2.4-1 1.3-1.8 2.3-2 1-.2 2.1.2 2.8.9.7.7 1 1.8 1 2.8v.3c-.9 1.8-2.2 3-3.4 3.2zm6.7 1.8c-1 .2-2-.1-2.7-.7-.8-.7-1.2-1.6-1.3-2.6 1-.3 1.9-.9 2.6-1.7.7.8 1.6 1.4 2.6 1.7 0 1-.5 2-1.2 2.6-.6.5-1.4.8-2.2.7zm5.5-2.5c-.8-.2-1.6-.7-2.1-1.3v-.3c0-1.1.4-2.1 1.1-2.9.7-.7 1.7-1.1 2.8-.9 1 .2 1.9 1 2.3 2 .5 1 .4 2.2-.1 3.2-.5 1-1.4 1.7-2.5 2-.5-.1-1-.4-1.5-.8z" />
-    </svg>
-  )
-}
-
 interface Project {
   number: string
   title: string
@@ -257,10 +249,10 @@ export default function PortfolioMain() {
               Work
             </a>
             <a
-              href="#experience"
+              href="#education"
               className="rounded-full px-5 py-2 font-heading text-xs font-medium tracking-wide text-white/70 transition-all hover:bg-white/10 hover:text-white"
             >
-              Experience
+              Education
             </a>
             <a
               href="#services"
@@ -309,9 +301,7 @@ export default function PortfolioMain() {
                 <span className="h-2 w-2 rounded-full bg-[#2176ff]" />
                 <span>Full-Stack Engineer &amp; Software Builder</span>
               </div>
-              <div className="flex items-center gap-6">
-                <span>Bennett Univ • CGPA 8.22</span>
-                <span className="hidden sm:inline">Ex-Xebia Intern</span>
+              <div className="flex items-center">
                 <span className="text-emerald-400 font-semibold">● Open for Roles</span>
               </div>
             </div>
@@ -364,27 +354,27 @@ export default function PortfolioMain() {
               </div>
 
               {/* Halden Stat Numbers */}
-              <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:col-span-5 lg:gap-4">
-                <div className="border-l border-white/10 pl-4">
-                  <div className="font-display text-4xl font-extrabold text-white">8.22</div>
+              <div className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4 lg:col-span-5 lg:gap-x-6">
+                <div className="border-l border-white/10 pl-4 sm:pl-5">
+                  <div className="font-display text-4xl sm:text-3xl xl:text-4xl font-extrabold text-white tracking-normal">8.22</div>
                   <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
                     CGPA • Bennett
                   </div>
                 </div>
-                <div className="border-l border-white/10 pl-4">
-                  <div className="font-display text-4xl font-extrabold text-[#2176ff]">300+</div>
+                <div className="border-l border-white/10 pl-4 sm:pl-5">
+                  <div className="font-display text-4xl sm:text-3xl xl:text-4xl font-extrabold text-[#2176ff] tracking-normal">300+</div>
                   <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
                     DSA Solved
                   </div>
                 </div>
-                <div className="border-l border-white/10 pl-4">
-                  <div className="font-display text-4xl font-extrabold text-white">03</div>
+                <div className="border-l border-white/10 pl-4 sm:pl-5">
+                  <div className="font-display text-4xl sm:text-3xl xl:text-4xl font-extrabold text-white tracking-normal">03</div>
                   <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
                     Flagship Builds
                   </div>
                 </div>
-                <div className="border-l border-white/10 pl-4">
-                  <div className="font-display text-4xl font-extrabold text-emerald-400">99.9%</div>
+                <div className="border-l border-white/10 pl-4 sm:pl-5">
+                  <div className="font-display text-4xl sm:text-3xl xl:text-4xl font-extrabold text-emerald-400 tracking-normal">99.9%</div>
                   <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
                     Cloud Uptime
                   </div>
@@ -514,67 +504,59 @@ export default function PortfolioMain() {
           </div>
         </section>
 
-        {/* Experience Section (Halden Editorial Timeline) */}
-        <section id="experience" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
+        {/* Education & Academic History Section */}
+        <section id="education" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-12 lg:grid-cols-12">
               <div className="lg:col-span-5">
                 <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
-                  // 02. Work History
+                  // 02. Academic Background
                 </span>
                 <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl">
-                  Work <span className="text-[#2176ff]">Experience</span>
+                  Education &amp; <br />
+                  <span className="text-[#2176ff]">Foundation</span>
                 </h2>
                 <p className="mt-4 max-w-md font-sans text-sm leading-relaxed text-[#9a9a9a]">
-                  Engineering real-world systems, cross-functional collaboration, and production infrastructure.
+                  Rigorous computer science curriculum, data structures &amp; algorithms foundation, and high academic performance.
                 </p>
 
-                {/* Bennett Campus Showcase */}
-                <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-                  <div className="font-mono text-[11px] text-[#2176ff] uppercase tracking-wider">Education</div>
-                  <div className="mt-1 font-display text-xl font-bold text-white">Bennett University</div>
-                  <div className="font-heading text-xs text-white/60">B.Tech in Computer Science &amp; Engineering</div>
-                  <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 font-mono text-xs text-white/70">
-                    <span>2023 – 2027</span>
-                    <span className="font-bold text-emerald-400">CGPA: 8.22</span>
+                {/* Quick Academic Metrics */}
+                <div className="mt-10 grid grid-cols-2 gap-4">
+                  <div className="rounded-2xl border border-white/10 bg-[#0e0d0f] p-5">
+                    <div className="font-mono text-[10px] uppercase text-[#9a9a9a]">Undergraduate CGPA</div>
+                    <div className="mt-1 font-display text-3xl font-extrabold text-emerald-400">8.22</div>
+                    <div className="mt-1 font-mono text-[10px] text-white/50">Bennett University</div>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-[#0e0d0f] p-5">
+                    <div className="font-mono text-[10px] uppercase text-[#9a9a9a]">Class XII Score</div>
+                    <div className="mt-1 font-display text-3xl font-extrabold text-[#2176ff]">80%</div>
+                    <div className="mt-1 font-mono text-[10px] text-white/50">CBSE Board</div>
                   </div>
                 </div>
               </div>
 
-              {/* Experience Details */}
-              <div className="space-y-8 lg:col-span-7">
+              {/* Education Cards */}
+              <div className="space-y-6 lg:col-span-7">
+                {/* Bennett University */}
                 <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 transition-all hover:border-[#2176ff]/50">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
                     <div>
-                      <h3 className="font-display text-2xl font-bold text-white">Xebia</h3>
-                      <div className="font-heading text-sm text-[#2176ff]">Full Stack Development Intern</div>
+                      <div className="font-mono text-[11px] text-[#2176ff] uppercase tracking-wider">Undergraduate Degree</div>
+                      <h3 className="mt-1 font-display text-2xl font-bold text-white">Bennett University</h3>
+                      <div className="font-heading text-sm text-white/80">B.Tech in Computer Science &amp; Engineering</div>
                     </div>
-                    <div className="font-mono text-xs text-[#9a9a9a]">
-                      June 2024 – Aug 2024
+                    <div className="text-right">
+                      <div className="font-mono text-xs font-semibold text-emerald-400">CGPA: 8.22</div>
+                      <div className="font-mono text-xs text-[#9a9a9a]">2024 – 2028</div>
                     </div>
                   </div>
 
                   <p className="mt-6 font-sans text-sm leading-relaxed text-[#9a9a9a]">
-                    Engineered enterprise frontend modules and high-throughput backend services. Designed performant UI components in React and optimized RESTful services with strict error handling.
+                    Core coursework: Data Structures &amp; Algorithms, Object-Oriented Programming, Database Management Systems, Computer Networks, and Full-Stack Engineering.
                   </p>
 
-                  <div className="mt-6 grid gap-3 font-sans text-xs text-white/80">
-                    <div className="flex items-start gap-2.5">
-                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
-                      <span>Built responsive, reusable UI components using React, Redux, and modern styling libraries.</span>
-                    </div>
-                    <div className="flex items-start gap-2.5">
-                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
-                      <span>Coordinated directly with senior architects on API contracts and performance benchmarking.</span>
-                    </div>
-                    <div className="flex items-start gap-2.5">
-                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
-                      <span>Streamlined frontend state flow and eliminated rendering bottlenecks across large datasets.</span>
-                    </div>
-                  </div>
-
                   <div className="mt-6 flex flex-wrap gap-2">
-                    {["React.js", "Redux", "REST APIs", "TypeScript", "Performance"].map((tag) => (
+                    {["Data Structures", "Algorithms", "System Design", "Cloud Systems", "Web Engineering"].map((tag) => (
                       <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] text-white/60">
                         {tag}
                       </span>
@@ -582,19 +564,21 @@ export default function PortfolioMain() {
                   </div>
                 </div>
 
-                {/* Academic Highlights */}
-                <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8">
+                {/* S D Memorial Senior Secondary School */}
+                <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 transition-all hover:border-white/30">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
                     <div>
-                      <h3 className="font-display text-xl font-bold text-white">CBSE Higher Secondary</h3>
-                      <div className="font-heading text-sm text-white/60">Rao Pahlad Singh Senior Secondary School</div>
+                      <div className="font-mono text-[11px] text-[#2176ff] uppercase tracking-wider">High School</div>
+                      <h3 className="mt-1 font-display text-xl font-bold text-white">S D Memorial Senior Secondary School, Haryana</h3>
+                      <div className="font-heading text-sm text-white/80">CBSE Higher Secondary Education</div>
                     </div>
-                    <div className="font-mono text-xs text-emerald-400 font-semibold">
-                      Grade: 93.4%
+                    <div className="text-right">
+                      <div className="font-mono text-xs font-semibold text-emerald-400">Grade: 80%</div>
+                      <div className="font-mono text-xs text-[#9a9a9a]">CBSE Board</div>
                     </div>
                   </div>
-                  <p className="mt-4 font-sans text-xs text-[#9a9a9a]">
-                    Specialized in Physics, Chemistry, and Advanced Mathematics with top percentile distinction.
+                  <p className="mt-4 font-sans text-xs leading-relaxed text-[#9a9a9a]">
+                    Specialized in Physics, Chemistry, and Advanced Mathematics with focus on science and analytical problem solving.
                   </p>
                 </div>
               </div>
@@ -763,22 +747,13 @@ export default function PortfolioMain() {
                       <GithubIcon className="h-4 w-4" />
                     </a>
                     <a
-                      href="https://linkedin.com"
+                      href="https://www.linkedin.com/in/yash-rohilla-088b83225/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white/80 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/10 hover:text-white"
                       aria-label="LinkedIn"
                     >
                       <LinkedinIcon className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="https://geeksforgeeks.org"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white/80 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/10 hover:text-white"
-                      aria-label="GeeksforGeeks"
-                    >
-                      <GfgIcon className="h-4 w-4" />
                     </a>
                   </div>
                 </div>
