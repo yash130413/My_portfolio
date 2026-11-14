@@ -425,15 +425,15 @@ export default function PortfolioMain() {
           style={{ height: `${PROJECTS.length * 160}vh` }}
         >
           {/* Sticky Container pinned during vertical scrolling */}
-          <div className="sticky top-0 flex h-screen w-full flex-col justify-between overflow-hidden px-6 py-16 sm:px-10 lg:py-20">
-            <div className="mx-auto w-full max-w-7xl">
+          <div className="sticky top-0 flex h-screen w-full flex-col justify-center overflow-hidden px-6 py-6 sm:px-10 lg:py-8">
+            <div className="mx-auto w-full max-w-7xl flex flex-col max-h-[92vh]">
               {/* Header & Slide Counter */}
-              <div className="mb-8 flex flex-col justify-between gap-4 border-b border-white/10 pb-6 sm:flex-row sm:items-end">
+              <div className="mb-4 flex shrink-0 flex-col justify-between gap-3 border-b border-white/10 pb-4 sm:flex-row sm:items-end">
                 <div>
-                  <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-[#2176ff]">
                     // 01. Portfolio Index
                   </span>
-                  <h2 className="mt-2 font-display text-3xl font-bold uppercase tracking-tight text-white sm:text-5xl">
+                  <h2 className="mt-1 font-display text-2xl sm:text-4xl font-bold uppercase tracking-tight text-white">
                     Selected <span className="text-[#2176ff]">Work</span>
                   </h2>
                 </div>
@@ -466,7 +466,7 @@ export default function PortfolioMain() {
               </div>
 
               {/* Stack of Cards with Futuristic Studio UI & Micro-Animations */}
-              <div className="relative min-h-[540px] w-full">
+              <div className="relative flex-1 min-h-[480px] sm:min-h-[520px] lg:min-h-[540px] w-full">
                 {PROJECTS.map((proj, idx) => {
                   const isActive = activeProjectIndex === idx
                   const isPast = activeProjectIndex > idx
@@ -475,8 +475,8 @@ export default function PortfolioMain() {
                   const projectProgress = (scrollProgress * PROJECTS.length) - idx
                   // -1 (entering) to 0 (focused) to +1 (exiting)
                   const clampedOffset = Math.max(-1, Math.min(1, projectProgress))
-                  const parallaxImageY = clampedOffset * -40
-                  const parallaxTextY = clampedOffset * -18
+                  const parallaxImageY = clampedOffset * -30
+                  const parallaxTextY = clampedOffset * -12
 
                   return (
                     <article
@@ -492,15 +492,15 @@ export default function PortfolioMain() {
                       {/* Interactive Neon Scanner Line (animates across top border of active card) */}
                       <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#2176ff] to-transparent opacity-80" />
 
-                      <div className="grid h-full lg:grid-cols-12 min-h-[540px]">
+                      <div className="grid h-full lg:grid-cols-12 min-h-full">
                         {/* Project Visual / Mockup with Interactive HUD overlays */}
-                        <div className="relative aspect-[16/10] overflow-hidden bg-black/80 lg:aspect-auto lg:col-span-7">
+                        <div className="relative aspect-[16/10] overflow-hidden bg-black/80 lg:aspect-auto lg:col-span-7 h-full">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={proj.image}
                             alt={proj.title}
                             style={{
-                              transform: `translate3d(0, ${parallaxImageY}px, 0) scale(1.1)`,
+                              transform: `translate3d(0, ${parallaxImageY}px, 0) scale(1.08)`,
                               transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                             }}
                             className="h-full w-full object-cover will-change-transform transition-all duration-700 filter brightness-95 contrast-105 group-hover:scale-115 group-hover:brightness-105"
@@ -513,9 +513,9 @@ export default function PortfolioMain() {
                             style={{
                               transform: `translate3d(0, ${parallaxTextY * 0.8}px, 0)`,
                             }}
-                            className="absolute top-6 left-6 flex items-center gap-3 transition-transform duration-300"
+                            className="absolute top-4 left-4 sm:top-6 sm:left-6 flex items-center gap-3 transition-transform duration-300"
                           >
-                            <span className="flex items-center gap-2 rounded-full border border-white/20 bg-black/70 px-3.5 py-1.5 font-mono text-xs text-white backdrop-blur-xl">
+                            <span className="flex items-center gap-2 rounded-full border border-white/20 bg-black/70 px-3 py-1 font-mono text-[11px] text-white backdrop-blur-xl">
                               <span className="h-2 w-2 animate-pulse rounded-full bg-[#2176ff] shadow-[0_0_8px_#2176ff]" />
                               <span>PROJECT {proj.number}</span>
                             </span>
@@ -527,16 +527,16 @@ export default function PortfolioMain() {
                             style={{
                               transform: `translate3d(0, ${parallaxTextY * 0.5}px, 0)`,
                             }}
-                            className="absolute bottom-6 left-6 rounded-2xl border border-white/20 bg-[#0e0d11]/85 p-4 backdrop-blur-2xl shadow-2xl transition-all duration-300 group-hover:border-[#2176ff]/60 group-hover:shadow-[0_0_30px_rgba(33,118,255,0.3)]"
+                            className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 rounded-2xl border border-white/20 bg-[#0e0d11]/90 p-3 sm:p-4 backdrop-blur-2xl shadow-2xl transition-all duration-300 group-hover:border-[#2176ff]/60 group-hover:shadow-[0_0_30px_rgba(33,118,255,0.3)]"
                           >
-                            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-white/50">
+                            <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-white/50">
                               <Activity className="h-3 w-3 text-[#2176ff]" />
                               <span>BENCHMARK METRIC</span>
                             </div>
-                            <div className="mt-1 font-display text-3xl font-extrabold text-[#2176ff] tracking-tight">
+                            <div className="mt-0.5 font-display text-2xl sm:text-3xl font-extrabold text-[#2176ff] tracking-tight">
                               {proj.metric}
                             </div>
-                            <div className="mt-0.5 font-mono text-[11px] text-white/80 max-w-[260px] leading-snug">
+                            <div className="mt-0.5 font-mono text-[10px] sm:text-[11px] text-white/80 max-w-[240px] leading-snug">
                               {proj.metricLabel}
                             </div>
                           </div>
@@ -547,45 +547,45 @@ export default function PortfolioMain() {
                           style={{
                             transform: `translate3d(0, ${parallaxTextY}px, 0)`,
                           }}
-                          className="flex flex-col justify-between p-8 sm:p-11 lg:col-span-5 transition-transform duration-300"
+                          className="flex flex-col justify-between p-6 sm:p-8 lg:p-10 lg:col-span-5 transition-transform duration-300 overflow-y-auto"
                         >
                           <div>
                             {/* Category pill */}
-                            <div className="inline-flex items-center gap-2 rounded-full border border-[#2176ff]/30 bg-[#2176ff]/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-[#5c9bff]">
+                            <div className="inline-flex items-center gap-1.5 rounded-full border border-[#2176ff]/30 bg-[#2176ff]/10 px-3 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[#5c9bff]">
                               <Sparkles className="h-3 w-3 text-[#2176ff]" />
                               <span>{proj.category}</span>
                             </div>
 
-                            <h3 className="mt-4 font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white group-hover:text-[#edf5fc] transition-colors">
+                            <h3 className="mt-2.5 font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-white group-hover:text-[#edf5fc] transition-colors">
                               {proj.title}
                             </h3>
-                            <p className="mt-1.5 font-heading text-sm font-semibold text-white/70">
+                            <p className="mt-0.5 font-heading text-xs sm:text-sm font-semibold text-white/70">
                               {proj.subtitle}
                             </p>
 
-                            <p className="mt-4 font-sans text-xs leading-relaxed text-[#9a9a9a]">
+                            <p className="mt-3 font-sans text-xs leading-relaxed text-[#9a9a9a]">
                               {proj.description}
                             </p>
 
                             {/* Architectural Highlights */}
-                            <div className="mt-6 space-y-2.5">
+                            <div className="mt-4 space-y-2">
                               {proj.highlights.map((h, i) => (
                                 <div
                                   key={i}
-                                  className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-2.5 transition-colors hover:border-white/10 hover:bg-white/[0.04]"
+                                  className="flex items-start gap-2.5 rounded-xl border border-white/5 bg-white/[0.02] p-2 transition-colors hover:border-white/10 hover:bg-white/[0.04]"
                                 >
-                                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#2176ff]" />
-                                  <span className="font-sans text-xs text-white/85 leading-snug">{h}</span>
+                                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
+                                  <span className="font-sans text-[11.5px] text-white/85 leading-snug">{h}</span>
                                 </div>
                               ))}
                             </div>
 
                             {/* Tech Stack Pills with Glow */}
-                            <div className="mt-6 flex flex-wrap gap-2">
+                            <div className="mt-4 flex flex-wrap gap-1.5">
                               {proj.tags.map((t) => (
                                 <span
                                   key={t}
-                                  className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1 font-mono text-[11px] text-white/75 transition-all hover:border-[#2176ff]/50 hover:bg-[#2176ff]/10 hover:text-white"
+                                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-0.5 font-mono text-[10px] text-white/75 transition-all hover:border-[#2176ff]/50 hover:bg-[#2176ff]/10 hover:text-white"
                                 >
                                   {t}
                                 </span>
@@ -594,13 +594,13 @@ export default function PortfolioMain() {
                           </div>
 
                           {/* Action Links */}
-                          <div className="mt-8 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6">
+                          <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-white/10 pt-4">
                             {proj.liveUrl && (
                               <a
                                 href={proj.liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group/btn relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-[#edf5fc] px-6 py-2.5 font-heading text-xs font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white hover:shadow-[0_0_30px_rgba(33,118,255,0.45)] hover:scale-105"
+                                className="group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#edf5fc] px-5 py-2 font-heading text-xs font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white hover:shadow-[0_0_25px_rgba(33,118,255,0.45)] hover:scale-105"
                               >
                                 <span>Live Demo</span>
                                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
@@ -611,9 +611,9 @@ export default function PortfolioMain() {
                               href={proj.githubUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-2.5 font-mono text-xs text-white/90 transition-all hover:border-white/40 hover:bg-white/10 hover:scale-105"
+                              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/90 transition-all hover:border-white/40 hover:bg-white/10 hover:scale-105"
                             >
-                              <GithubIcon className="h-4 w-4" />
+                              <GithubIcon className="h-3.5 w-3.5" />
                               <span>Source Code</span>
                             </a>
                           </div>
@@ -627,82 +627,153 @@ export default function PortfolioMain() {
           </div>
         </section>
 
-        {/* Education & Academic History Section */}
-        <section id="education" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid gap-12 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
-                  // 02. Academic Background
-                </span>
-                <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl">
+        {/* Education & Academic History Section (Cinematic Visual Cards with Ambient Glow) */}
+        <section id="education" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32 overflow-hidden">
+          {/* Ambient Lighting Accents */}
+          <div className="pointer-events-none absolute top-1/4 right-0 h-[450px] w-[450px] rounded-full bg-[#2176ff]/10 blur-[140px]" />
+          <div className="pointer-events-none absolute bottom-10 left-10 h-[350px] w-[350px] rounded-full bg-emerald-500/8 blur-[120px]" />
+
+          <div className="mx-auto max-w-7xl relative z-10">
+            <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+              {/* Left Column: Heading & Highlight Metric Cards */}
+              <div className="lg:col-span-5 lg:sticky lg:top-28">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#2176ff]/30 bg-[#2176ff]/10 px-3.5 py-1 font-mono text-[11px] uppercase tracking-widest text-[#5c9bff]">
+                  <GraduationCap className="h-3.5 w-3.5 text-[#2176ff]" />
+                  <span>02. Academic Foundation</span>
+                </div>
+                <h2 className="mt-4 font-display text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white leading-[1.05]">
                   Education &amp; <br />
-                  <span className="text-[#2176ff]">Foundation</span>
+                  <span className="bg-gradient-to-r from-[#2176ff] via-[#5c9bff] to-white bg-clip-text text-transparent">
+                    Core Pedigree
+                  </span>
                 </h2>
                 <p className="mt-4 max-w-md font-sans text-sm leading-relaxed text-[#9a9a9a]">
-                  Rigorous computer science curriculum, data structures &amp; algorithms foundation, and high academic performance.
+                  Rigorous computer science curriculum, strong mathematical problem-solving foundation, and consistent academic distinction.
                 </p>
 
-                {/* Quick Academic Metrics */}
+                {/* Animated Quick Stat Glass Cards */}
                 <div className="mt-10 grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-white/10 bg-[#0e0d0f] p-5">
-                    <div className="font-mono text-[10px] uppercase text-[#9a9a9a]">Undergraduate CGPA</div>
-                    <div className="mt-1 font-display text-3xl font-extrabold text-emerald-400">8.22</div>
-                    <div className="mt-1 font-mono text-[10px] text-white/50">Bennett University</div>
+                  <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0c0b0f]/80 p-5 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[10px] uppercase text-[#9a9a9a]">B.TECH CGPA</span>
+                      <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]" />
+                    </div>
+                    <div className="mt-2 font-display text-3xl sm:text-4xl font-extrabold text-emerald-400">8.22</div>
+                    <div className="mt-1 font-mono text-[11px] text-white/60">Bennett University</div>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-[#0e0d0f] p-5">
-                    <div className="font-mono text-[10px] uppercase text-[#9a9a9a]">Class XII Score</div>
-                    <div className="mt-1 font-display text-3xl font-extrabold text-[#2176ff]">80%</div>
-                    <div className="mt-1 font-mono text-[10px] text-white/50">CBSE Board</div>
+
+                  <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0c0b0f]/80 p-5 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-[#2176ff]/50 hover:shadow-[0_0_30px_rgba(33,118,255,0.15)]">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-[10px] uppercase text-[#9a9a9a]">CLASS XII SCORE</span>
+                      <span className="h-2 w-2 rounded-full bg-[#2176ff] shadow-[0_0_8px_#2176ff]" />
+                    </div>
+                    <div className="mt-2 font-display text-3xl sm:text-4xl font-extrabold text-[#2176ff]">80%</div>
+                    <div className="mt-1 font-mono text-[11px] text-white/60">CBSE Science</div>
                   </div>
                 </div>
               </div>
 
-              {/* Education Cards */}
-              <div className="space-y-6 lg:col-span-7">
-                {/* Bennett University */}
-                <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 transition-all hover:border-[#2176ff]/50">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
+              {/* Right Column: High-Impact Visual Education Cards */}
+              <div className="space-y-8 lg:col-span-7">
+                {/* 1. Bennett University Card */}
+                <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0e0d12] via-[#0a090c] to-[#070608] p-8 shadow-2xl transition-all duration-500 hover:border-[#2176ff]/60 hover:shadow-[0_0_50px_rgba(33,118,255,0.2)]">
+                  {/* Subtle Top Accent Beam */}
+                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#2176ff] to-transparent opacity-80" />
+
+                  <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-6">
                     <div>
-                      <div className="font-mono text-[11px] text-[#2176ff] uppercase tracking-wider">Undergraduate Degree</div>
-                      <h3 className="mt-1 font-display text-2xl font-bold text-white">Bennett University</h3>
-                      <div className="font-heading text-sm text-white/80">B.Tech in Computer Science &amp; Engineering</div>
+                      <div className="flex items-center gap-2 font-mono text-xs text-[#2176ff] uppercase tracking-wider">
+                        <span className="h-2 w-2 rounded-full bg-[#2176ff] animate-pulse" />
+                        <span>Undergraduate Degree • In Progress</span>
+                      </div>
+                      <h3 className="mt-2 font-display text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#5c9bff] transition-colors">
+                        Bennett University
+                      </h3>
+                      <div className="mt-1 font-heading text-sm font-semibold text-white/80">
+                        B.Tech in Computer Science &amp; Engineering
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <div className="font-mono text-xs font-semibold text-emerald-400">CGPA: 8.22</div>
-                      <div className="font-mono text-xs text-[#9a9a9a]">2024 – 2028</div>
+
+                    <div className="flex flex-col items-end gap-1.5 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-2.5 backdrop-blur-md">
+                      <span className="font-display text-lg font-bold text-emerald-400">CGPA 8.22</span>
+                      <span className="font-mono text-[11px] text-white/50">2024 – 2028</span>
                     </div>
                   </div>
 
-                  <p className="mt-6 font-sans text-sm leading-relaxed text-[#9a9a9a]">
-                    Core coursework: Data Structures &amp; Algorithms, Object-Oriented Programming, Database Management Systems, Computer Networks, and Full-Stack Engineering.
+                  <p className="mt-6 font-sans text-xs sm:text-sm leading-relaxed text-[#9a9a9a]">
+                    Specializing in high-performance distributed systems, data structures &amp; algorithms, database architectures, and full-stack web engineering.
                   </p>
 
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {["Data Structures", "Algorithms", "System Design", "Cloud Systems", "Web Engineering"].map((tag) => (
-                      <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] text-white/60">
+                  {/* Highlights Grid */}
+                  <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
+                    {[
+                      "Data Structures & Algorithms",
+                      "Database Management (SQL & NoSQL)",
+                      "Object-Oriented System Design",
+                      "Computer Networks & Cloud Systems",
+                    ].map((course, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center gap-2.5 rounded-xl border border-white/5 bg-white/[0.02] px-3.5 py-2.5 transition-all duration-300 hover:border-[#2176ff]/40 hover:bg-[#2176ff]/5"
+                      >
+                        <CheckCircle2 className="h-4 w-4 shrink-0 text-[#2176ff]" />
+                        <span className="font-mono text-xs text-white/80">{course}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Badges */}
+                  <div className="mt-6 flex flex-wrap gap-2 border-t border-white/5 pt-5">
+                    {["C++", "Java", "Python", "Full-Stack Web", "Algorithms", "System Architecture"].map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[10px] text-white/70 transition-colors hover:border-[#2176ff]/40 hover:text-white"
+                      >
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                {/* S D Memorial Senior Secondary School */}
-                <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 transition-all hover:border-white/30">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
+                {/* 2. S D Memorial Senior Secondary School Card */}
+                <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0e0d12] via-[#0a090c] to-[#070608] p-8 shadow-2xl transition-all duration-500 hover:border-emerald-500/50 hover:shadow-[0_0_50px_rgba(16,185,129,0.15)]">
+                  {/* Top Beam */}
+                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-70" />
+
+                  <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-6">
                     <div>
-                      <div className="font-mono text-[11px] text-[#2176ff] uppercase tracking-wider">High School</div>
-                      <h3 className="mt-1 font-display text-xl font-bold text-white">S D Memorial Senior Secondary School, Haryana</h3>
-                      <div className="font-heading text-sm text-white/80">CBSE Higher Secondary Education</div>
+                      <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 uppercase tracking-wider">
+                        <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                        <span>High School Education • Completed</span>
+                      </div>
+                      <h3 className="mt-2 font-display text-xl sm:text-2xl font-extrabold text-white group-hover:text-emerald-300 transition-colors">
+                        S D Memorial Senior Secondary School
+                      </h3>
+                      <div className="mt-1 font-heading text-sm font-semibold text-white/80">
+                        CBSE Higher Secondary Education • Haryana
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <div className="font-mono text-xs font-semibold text-emerald-400">Grade: 80%</div>
-                      <div className="font-mono text-xs text-[#9a9a9a]">CBSE Board</div>
+
+                    <div className="flex flex-col items-end gap-1.5 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-2.5 backdrop-blur-md">
+                      <span className="font-display text-lg font-bold text-[#2176ff]">80% Score</span>
+                      <span className="font-mono text-[11px] text-white/50">CBSE Board</span>
                     </div>
                   </div>
-                  <p className="mt-4 font-sans text-xs leading-relaxed text-[#9a9a9a]">
-                    Specialized in Physics, Chemistry, and Advanced Mathematics with focus on science and analytical problem solving.
+
+                  <p className="mt-6 font-sans text-xs sm:text-sm leading-relaxed text-[#9a9a9a]">
+                    Completed senior secondary education with strong focus in Non-Medical Sciences — Physics, Chemistry, and Advanced Mathematics, setting the analytical baseline for computer science.
                   </p>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {["Physics", "Chemistry", "Mathematics", "Analytical Problem Solving", "Computer Science"].map((sub) => (
+                      <span
+                        key={sub}
+                        className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1 font-mono text-[10px] text-white/70 transition-colors hover:border-emerald-400/40 hover:text-white"
+                      >
+                        {sub}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
