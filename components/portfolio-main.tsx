@@ -384,29 +384,37 @@ export default function PortfolioMain() {
           </div>
         </section>
 
-        {/* Selected Work Section (Halden Full-Width Showcase) */}
-        <section id="work" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
-          <div className="mx-auto max-w-7xl">
-            {/* Section Header */}
-            <div className="mb-16">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
-                // 01. Portfolio Index
-              </span>
-              <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl">
-                Selected <span className="text-[#2176ff]">Work</span>
-              </h2>
+        {/* Selected Work Section (Horizontal Scroll Carousel / Sticky Pin Showcase) */}
+        <section id="work" className="relative border-t border-white/10 py-24 lg:py-32">
+          <div className="mx-auto max-w-7xl px-6 sm:px-10">
+            {/* Section Header with Carousel Navigation Indicator */}
+            <div className="mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                  // 01. Portfolio Index
+                </span>
+                <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl">
+                  Selected <span className="text-[#2176ff]">Work</span>
+                </h2>
+              </div>
+              <div className="hidden items-center gap-3 font-mono text-xs text-white/50 sm:flex">
+                <span>SCROLL HORIZONTALLY</span>
+                <ArrowRight className="h-4 w-4 animate-pulse text-[#2176ff]" />
+              </div>
             </div>
+          </div>
 
-            {/* Halden Project Cards Stack */}
-            <div className="space-y-16 lg:space-y-24">
-              {PROJECTS.map((proj) => (
+          {/* Slide-by-Slide Horizontal Snap Carousel */}
+          <div className="relative w-full">
+            <div className="flex gap-6 overflow-x-auto px-6 pb-8 pt-2 scrollbar-none sm:px-10 lg:gap-8 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none]">
+              {PROJECTS.map((proj, idx) => (
                 <article
                   key={proj.title}
-                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0e0d0f] transition-all duration-700 hover:border-[#2176ff]/60 hover:shadow-[0_0_60px_rgba(33,118,255,0.15)]"
+                  className="group relative flex-none w-[88vw] sm:w-[75vw] lg:w-[65vw] max-w-5xl snap-center overflow-hidden rounded-3xl border border-white/10 bg-[#0e0d0f] shadow-2xl transition-all duration-500 hover:border-[#2176ff]/60 hover:shadow-[0_0_60px_rgba(33,118,255,0.15)]"
                 >
-                  <div className="grid lg:grid-cols-12">
+                  <div className="grid lg:grid-cols-12 min-h-[500px]">
                     {/* Project Visual / Mockup */}
-                    <div className="relative aspect-[16/10] overflow-hidden bg-black/60 lg:col-span-7">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-black/60 lg:aspect-auto lg:col-span-7">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={proj.image}
@@ -415,9 +423,12 @@ export default function PortfolioMain() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0e0d0f] via-transparent to-transparent opacity-80" />
 
-                      {/* Halden Corner Project Number */}
-                      <div className="absolute top-6 left-6 font-display text-3xl font-extrabold text-white/80 drop-shadow-md">
-                        {proj.number}
+                      {/* Halden Corner Project Number & Slide Count */}
+                      <div className="absolute top-6 left-6 flex items-baseline gap-2">
+                        <span className="font-display text-3xl font-extrabold text-white drop-shadow-md">
+                          {proj.number}
+                        </span>
+                        <span className="font-mono text-xs text-white/40">/ 0{PROJECTS.length}</span>
                       </div>
 
                       {/* Stat Badge */}
@@ -428,7 +439,7 @@ export default function PortfolioMain() {
                     </div>
 
                     {/* Project Information */}
-                    <div className="flex flex-col justify-between p-8 sm:p-12 lg:col-span-5">
+                    <div className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-5">
                       <div>
                         <div className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
                           {proj.category}
@@ -440,12 +451,12 @@ export default function PortfolioMain() {
                           {proj.subtitle}
                         </p>
 
-                        <p className="mt-6 font-sans text-sm leading-relaxed text-[#9a9a9a]">
+                        <p className="mt-5 font-sans text-xs leading-relaxed text-[#9a9a9a]">
                           {proj.description}
                         </p>
 
                         {/* Architectural Highlights */}
-                        <ul className="mt-6 space-y-2.5">
+                        <ul className="mt-5 space-y-2">
                           {proj.highlights.map((h, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-xs text-white/80">
                               <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
@@ -455,7 +466,7 @@ export default function PortfolioMain() {
                         </ul>
 
                         {/* Tech Tag Pills */}
-                        <div className="mt-8 flex flex-wrap gap-2">
+                        <div className="mt-6 flex flex-wrap gap-1.5">
                           {proj.tags.map((t) => (
                             <span
                               key={t}
@@ -468,7 +479,7 @@ export default function PortfolioMain() {
                       </div>
 
                       {/* Action Links */}
-                      <div className="mt-10 flex items-center gap-4 border-t border-white/10 pt-6">
+                      <div className="mt-8 flex items-center gap-4 border-t border-white/10 pt-5">
                         {proj.liveUrl && (
                           <a
                             href={proj.liveUrl}
@@ -476,7 +487,7 @@ export default function PortfolioMain() {
                             rel="noopener noreferrer"
                             className="group/link inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 font-heading text-xs font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white"
                           >
-                            <span>Live Application</span>
+                            <span>Live App</span>
                             <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                           </a>
                         )}
@@ -488,7 +499,7 @@ export default function PortfolioMain() {
                           className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/90 transition-all hover:border-white/40 hover:bg-white/10"
                         >
                           <GithubIcon className="h-3.5 w-3.5" />
-                          <span>Source Code</span>
+                          <span>Code</span>
                         </a>
                       </div>
                     </div>
