@@ -312,57 +312,110 @@ export default function PortfolioMain() {
             </div>
           </div>
 
-          {/* Right Column: Visual Developer Showcase Card */}
+          {/* Right Column: Interactive Code & Architecture IDE Terminal Card */}
           <div className="lg:col-span-5">
-            <div className="relative mx-auto max-w-md overflow-hidden rounded-3xl border border-white/15 bg-white/[0.03] p-2.5 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/50">
-              {/* Terminal window header */}
-              <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
+            <div className="relative mx-auto max-w-lg overflow-hidden rounded-3xl border border-cyan-500/20 bg-[#090d16]/90 p-1 shadow-[0_0_50px_rgba(34,211,238,0.12)] backdrop-blur-2xl transition-all duration-500 hover:border-cyan-400/50 hover:shadow-[0_0_70px_rgba(34,211,238,0.2)]">
+              {/* Terminal window top bar */}
+              <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-4 py-3">
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full bg-red-500/80 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                  <span className="h-3 w-3 rounded-full bg-amber-500/80 shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
+                  <span className="h-3 w-3 rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                  <span className="ml-2 rounded-md bg-white/5 px-2 py-0.5 font-mono text-[11px] text-cyan-300">
+                    yash.config.ts
+                  </span>
                 </div>
-                <span className="font-mono text-[11px] text-white/40">yash@workstation: ~/portfolio</span>
-                <Activity className="h-3.5 w-3.5 text-cyan-400" />
-              </div>
-
-              {/* High-res Developer Desk Visual */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/60">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80"
-                  alt="Yash Rohilla Developer Environment"
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#05070d] via-black/30 to-transparent" />
-
-                {/* Floating pill: Active Role */}
-                <div className="absolute top-3 left-3 flex items-center gap-2 rounded-full border border-white/20 bg-black/70 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-cyan-300 backdrop-blur-md">
-                  <Zap className="h-3 w-3 text-cyan-400" />
-                  <span>Real-Time Full-Stack</span>
-                </div>
-
-                {/* Bottom glassmorphic overlay inside image */}
-                <div className="absolute bottom-3 inset-x-3 rounded-xl border border-white/10 bg-black/60 p-3 backdrop-blur-md">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-heading font-semibold text-white">Yash Rohilla</span>
-                    <span className="font-mono text-[10px] text-emerald-400">● Open for Roles</span>
-                  </div>
-                  <div className="mt-1 font-mono text-[10px] text-white/60">
-                    B.Tech CS &apos;27 • Bennett University
-                  </div>
+                <div className="flex items-center gap-2 font-mono text-[11px] text-emerald-400">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+                  <span>runtime: ready</span>
                 </div>
               </div>
 
-              {/* Mini tech badges below card image */}
-              <div className="mt-3 grid grid-cols-2 gap-2 p-2 font-mono text-[11px]">
-                <div className="rounded-xl border border-white/5 bg-white/5 p-2.5">
-                  <div className="text-white/40 text-[9px] uppercase">Specialization</div>
-                  <div className="font-semibold text-cyan-300">Socket.IO + Redis</div>
+              {/* Live IDE Code Body */}
+              <div className="p-5 font-mono text-xs leading-relaxed selection:bg-cyan-500/30">
+                <div className="flex gap-4 text-white/30 select-none">
+                  <div className="flex flex-col text-right font-mono text-[11px] leading-[22px] text-white/20">
+                    <span>01</span>
+                    <span>02</span>
+                    <span>03</span>
+                    <span>04</span>
+                    <span>05</span>
+                    <span>06</span>
+                    <span>07</span>
+                    <span>08</span>
+                    <span>09</span>
+                    <span>10</span>
+                    <span>11</span>
+                    <span>12</span>
+                    <span>13</span>
+                  </div>
+
+                  <div className="flex-1 overflow-x-auto text-[11.5px] leading-[22px]">
+                    <div>
+                      <span className="text-purple-400">const</span>{" "}
+                      <span className="text-cyan-300">engineer</span>:{" "}
+                      <span className="text-amber-300">DeveloperProfile</span> = &#123;
+                    </div>
+                    <div className="pl-4">
+                      <span className="text-white/70">name:</span>{" "}
+                      <span className="text-emerald-300">&quot;Yash Rohilla&quot;</span>,
+                    </div>
+                    <div className="pl-4">
+                      <span className="text-white/70">focus:</span>{" "}
+                      <span className="text-emerald-300">&quot;Full-Stack &amp; Scalable Systems&quot;</span>,
+                    </div>
+                    <div className="pl-4">
+                      <span className="text-white/70">education:</span>{" "}
+                      <span className="text-emerald-300">&quot;Bennett University (CGPA 8.22)&quot;</span>,
+                    </div>
+                    <div className="pl-4">
+                      <span className="text-white/70">stack:</span> [
+                      <span className="text-sky-300">&quot;Next.js&quot;</span>,{" "}
+                      <span className="text-sky-300">&quot;Node.js&quot;</span>,{" "}
+                      <span className="text-sky-300">&quot;AWS&quot;</span>,{" "}
+                      <span className="text-sky-300">&quot;Redis&quot;</span>
+                      ],
+                    </div>
+                    <div className="pl-4">
+                      <span className="text-white/70">dsaSolved:</span>{" "}
+                      <span className="text-amber-400 font-bold">300</span>,
+                    </div>
+                    <div className="pl-4">
+                      <span className="text-white/70">status:</span>{" "}
+                      <span className="text-emerald-400">&quot;Ready for High-Impact Roles&quot;</span>,
+                    </div>
+                    <div className="pl-4">
+                      <span className="text-cyan-400">executeCode</span>: () =&gt; &#123;
+                    </div>
+                    <div className="pl-8 text-white/50">
+                      <span className="text-purple-400">return</span>{" "}
+                      <span className="text-cyan-300">transformImaginationIntoCode</span>();
+                    </div>
+                    <div className="pl-4">&#125;,</div>
+                    <div>&#125;;</div>
+                    <div className="mt-2 text-white/40">
+                      <span className="text-cyan-400">$</span> deploy --target production
+                    </div>
+                    <div className="text-emerald-400/90 font-semibold">
+                      ✔ Build compiled in 184ms • All systems operational
+                    </div>
+                  </div>
                 </div>
-                <div className="rounded-xl border border-white/5 bg-white/5 p-2.5">
-                  <div className="text-white/40 text-[9px] uppercase">Architecture</div>
-                  <div className="font-semibold text-white">CSR Pattern</div>
+              </div>
+
+              {/* System telemetry footer metrics */}
+              <div className="grid grid-cols-3 gap-2 border-t border-white/10 bg-black/40 p-3 font-mono text-[11px]">
+                <div className="rounded-xl border border-white/5 bg-white/[0.02] p-2.5">
+                  <div className="text-[9px] uppercase tracking-wider text-white/40">LATENCY</div>
+                  <div className="font-bold text-emerald-400">12ms (Optimized)</div>
+                </div>
+                <div className="rounded-xl border border-white/5 bg-white/[0.02] p-2.5">
+                  <div className="text-[9px] uppercase tracking-wider text-white/40">ARCHITECTURE</div>
+                  <div className="font-bold text-cyan-300">CSR + Microservices</div>
+                </div>
+                <div className="rounded-xl border border-white/5 bg-white/[0.02] p-2.5">
+                  <div className="text-[9px] uppercase tracking-wider text-white/40">UPTIME</div>
+                  <div className="font-bold text-white">99.98% EC2</div>
                 </div>
               </div>
             </div>
