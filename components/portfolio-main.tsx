@@ -465,8 +465,8 @@ export default function PortfolioMain() {
                 </div>
               </div>
 
-              {/* Stack of Cards with Parallax Layering & Vertical-to-Fade Animation */}
-              <div className="relative min-h-[500px] w-full">
+              {/* Stack of Cards with Futuristic Studio UI & Micro-Animations */}
+              <div className="relative min-h-[540px] w-full">
                 {PROJECTS.map((proj, idx) => {
                   const isActive = activeProjectIndex === idx
                   const isPast = activeProjectIndex > idx
@@ -475,75 +475,91 @@ export default function PortfolioMain() {
                   const projectProgress = (scrollProgress * PROJECTS.length) - idx
                   // -1 (entering) to 0 (focused) to +1 (exiting)
                   const clampedOffset = Math.max(-1, Math.min(1, projectProgress))
-                  const parallaxImageY = clampedOffset * -35 // Image moves subtly opposite to scroll
-                  const parallaxTextY = clampedOffset * -15 // Text shifts subtly for depth separation
+                  const parallaxImageY = clampedOffset * -40
+                  const parallaxTextY = clampedOffset * -18
 
                   return (
                     <article
                       key={proj.title}
-                      className={`group absolute inset-0 overflow-hidden rounded-3xl border bg-[#0e0d0f] shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      className={`group absolute inset-0 overflow-hidden rounded-3xl border bg-[#0a090c]/95 shadow-2xl backdrop-blur-2xl transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                         isActive
-                          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto border-[#2176ff]/60 shadow-[0_0_70px_rgba(33,118,255,0.22)] z-20"
+                          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto border-[#2176ff]/70 shadow-[0_0_80px_rgba(33,118,255,0.25)] ring-1 ring-[#2176ff]/30 z-20"
                           : isPast
-                          ? "opacity-0 -translate-y-16 scale-[0.93] pointer-events-none border-white/5 z-10"
-                          : "opacity-0 translate-y-16 scale-[0.93] pointer-events-none border-white/5 z-0"
+                          ? "opacity-0 -translate-y-20 scale-[0.92] pointer-events-none border-white/5 z-10"
+                          : "opacity-0 translate-y-20 scale-[0.92] pointer-events-none border-white/5 z-0"
                       }`}
                     >
-                      <div className="grid h-full lg:grid-cols-12 min-h-[500px]">
-                        {/* Project Visual / Mockup with Parallax Image Depth */}
-                        <div className="relative aspect-[16/10] overflow-hidden bg-black/60 lg:aspect-auto lg:col-span-7">
+                      {/* Interactive Neon Scanner Line (animates across top border of active card) */}
+                      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#2176ff] to-transparent opacity-80" />
+
+                      <div className="grid h-full lg:grid-cols-12 min-h-[540px]">
+                        {/* Project Visual / Mockup with Interactive HUD overlays */}
+                        <div className="relative aspect-[16/10] overflow-hidden bg-black/80 lg:aspect-auto lg:col-span-7">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={proj.image}
                             alt={proj.title}
                             style={{
-                              transform: `translate3d(0, ${parallaxImageY}px, 0) scale(1.08)`,
-                              transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                              transform: `translate3d(0, ${parallaxImageY}px, 0) scale(1.1)`,
+                              transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                             }}
-                            className="h-full w-full object-cover will-change-transform group-hover:scale-110"
+                            className="h-full w-full object-cover will-change-transform transition-all duration-700 filter brightness-95 contrast-105 group-hover:scale-115 group-hover:brightness-105"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#0e0d0f] via-transparent to-transparent opacity-80" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0a090c] via-black/30 to-transparent opacity-90" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0a090c]/80 hidden lg:block" />
 
-                          {/* Corner Project Number with Floating Parallax */}
+                          {/* Futuristic Corner Badge & Live Ping */}
                           <div
                             style={{
                               transform: `translate3d(0, ${parallaxTextY * 0.8}px, 0)`,
                             }}
-                            className="absolute top-6 left-6 flex items-baseline gap-2 transition-transform duration-300"
+                            className="absolute top-6 left-6 flex items-center gap-3 transition-transform duration-300"
                           >
-                            <span className="font-display text-4xl font-extrabold text-white drop-shadow-md">
-                              {proj.number}
+                            <span className="flex items-center gap-2 rounded-full border border-white/20 bg-black/70 px-3.5 py-1.5 font-mono text-xs text-white backdrop-blur-xl">
+                              <span className="h-2 w-2 animate-pulse rounded-full bg-[#2176ff] shadow-[0_0_8px_#2176ff]" />
+                              <span>PROJECT {proj.number}</span>
                             </span>
                             <span className="font-mono text-xs text-white/40">/ 0{PROJECTS.length}</span>
                           </div>
 
-                          {/* Stat Badge */}
+                          {/* Live Metric HUD Card with Glowing Indicator */}
                           <div
                             style={{
                               transform: `translate3d(0, ${parallaxTextY * 0.5}px, 0)`,
                             }}
-                            className="absolute bottom-6 left-6 rounded-2xl border border-white/15 bg-black/75 px-4 py-2.5 backdrop-blur-xl transition-transform duration-300"
+                            className="absolute bottom-6 left-6 rounded-2xl border border-white/20 bg-[#0e0d11]/85 p-4 backdrop-blur-2xl shadow-2xl transition-all duration-300 group-hover:border-[#2176ff]/60 group-hover:shadow-[0_0_30px_rgba(33,118,255,0.3)]"
                           >
-                            <div className="font-display text-2xl font-bold text-[#2176ff]">{proj.metric}</div>
-                            <div className="font-mono text-[10px] text-white/70">{proj.metricLabel}</div>
+                            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-white/50">
+                              <Activity className="h-3 w-3 text-[#2176ff]" />
+                              <span>BENCHMARK METRIC</span>
+                            </div>
+                            <div className="mt-1 font-display text-3xl font-extrabold text-[#2176ff] tracking-tight">
+                              {proj.metric}
+                            </div>
+                            <div className="mt-0.5 font-mono text-[11px] text-white/80 max-w-[260px] leading-snug">
+                              {proj.metricLabel}
+                            </div>
                           </div>
                         </div>
 
-                        {/* Project Information with Depth Offset */}
+                        {/* Project Information Panel with Staggered Hierarchy */}
                         <div
                           style={{
                             transform: `translate3d(0, ${parallaxTextY}px, 0)`,
                           }}
-                          className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-5 transition-transform duration-300"
+                          className="flex flex-col justify-between p-8 sm:p-11 lg:col-span-5 transition-transform duration-300"
                         >
                           <div>
-                            <div className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
-                              {proj.category}
+                            {/* Category pill */}
+                            <div className="inline-flex items-center gap-2 rounded-full border border-[#2176ff]/30 bg-[#2176ff]/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-[#5c9bff]">
+                              <Sparkles className="h-3 w-3 text-[#2176ff]" />
+                              <span>{proj.category}</span>
                             </div>
-                            <h3 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+
+                            <h3 className="mt-4 font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white group-hover:text-[#edf5fc] transition-colors">
                               {proj.title}
                             </h3>
-                            <p className="mt-1 font-heading text-sm font-medium text-white/60">
+                            <p className="mt-1.5 font-heading text-sm font-semibold text-white/70">
                               {proj.subtitle}
                             </p>
 
@@ -551,22 +567,25 @@ export default function PortfolioMain() {
                               {proj.description}
                             </p>
 
-                            {/* Highlights */}
-                            <ul className="mt-4 space-y-2">
+                            {/* Architectural Highlights */}
+                            <div className="mt-6 space-y-2.5">
                               {proj.highlights.map((h, i) => (
-                                <li key={i} className="flex items-start gap-2.5 text-xs text-white/80">
-                                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
-                                  <span>{h}</span>
-                                </li>
+                                <div
+                                  key={i}
+                                  className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-2.5 transition-colors hover:border-white/10 hover:bg-white/[0.04]"
+                                >
+                                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#2176ff]" />
+                                  <span className="font-sans text-xs text-white/85 leading-snug">{h}</span>
+                                </div>
                               ))}
-                            </ul>
+                            </div>
 
-                            {/* Tech Tag Pills */}
-                            <div className="mt-5 flex flex-wrap gap-1.5">
+                            {/* Tech Stack Pills with Glow */}
+                            <div className="mt-6 flex flex-wrap gap-2">
                               {proj.tags.map((t) => (
                                 <span
                                   key={t}
-                                  className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[10px] text-white/70"
+                                  className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1 font-mono text-[11px] text-white/75 transition-all hover:border-[#2176ff]/50 hover:bg-[#2176ff]/10 hover:text-white"
                                 >
                                   {t}
                                 </span>
@@ -575,16 +594,16 @@ export default function PortfolioMain() {
                           </div>
 
                           {/* Action Links */}
-                          <div className="mt-6 flex items-center gap-4 border-t border-white/10 pt-5">
+                          <div className="mt-8 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6">
                             {proj.liveUrl && (
                               <a
                                 href={proj.liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group/link inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 font-heading text-xs font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white"
+                                className="group/btn relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-[#edf5fc] px-6 py-2.5 font-heading text-xs font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white hover:shadow-[0_0_30px_rgba(33,118,255,0.45)] hover:scale-105"
                               >
-                                <span>Live Application</span>
-                                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                                <span>Live Demo</span>
+                                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
                               </a>
                             )}
 
@@ -592,9 +611,9 @@ export default function PortfolioMain() {
                               href={proj.githubUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/90 transition-all hover:border-white/40 hover:bg-white/10"
+                              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-2.5 font-mono text-xs text-white/90 transition-all hover:border-white/40 hover:bg-white/10 hover:scale-105"
                             >
-                              <GithubIcon className="h-3.5 w-3.5" />
+                              <GithubIcon className="h-4 w-4" />
                               <span>Source Code</span>
                             </a>
                           </div>
@@ -771,38 +790,77 @@ export default function PortfolioMain() {
           </div>
         </section>
 
-        {/* Halden Massive Statement Footer & Contact ("Got a Brief? Let's Talk") */}
-        <section id="contact" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-36 bg-[#060506]">
+        {/* Outro Transition / Kinetic Infinite Horizon Marquee */}
+        <div className="relative overflow-hidden border-t border-b border-white/10 bg-[#060507] py-14">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-[#060507] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-[#060507] to-transparent" />
+          
+          <div className="flex w-max animate-[marquee_25s_linear_infinite] items-center gap-10 whitespace-nowrap text-white/20 select-none">
+            <span className="font-display text-6xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.25)] hover:[-webkit-text-stroke:1px_#2176ff] hover:text-[#2176ff] transition-all duration-300">
+              NEXT.JS • REACT • TYPESCRIPT
+            </span>
+            <span className="h-4 w-4 rounded-full bg-[#2176ff]/60 shadow-[0_0_15px_#2176ff]" />
+            <span className="font-display text-6xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white/30">
+              DISTRIBUTED ARCHITECTURE
+            </span>
+            <span className="h-4 w-4 rounded-full bg-emerald-400/60 shadow-[0_0_15px_#10b981]" />
+            <span className="font-display text-6xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.25)] hover:[-webkit-text-stroke:1px_#2176ff] hover:text-[#2176ff] transition-all duration-300">
+              AWS EC2 &amp; NGINX
+            </span>
+            <span className="h-4 w-4 rounded-full bg-[#2176ff]/60 shadow-[0_0_15px_#2176ff]" />
+            <span className="font-display text-6xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white/30">
+              MICRO-INTERACTIONS
+            </span>
+            <span className="h-4 w-4 rounded-full bg-emerald-400/60 shadow-[0_0_15px_#10b981]" />
+            <span className="font-display text-6xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.25)]">
+              NEXT.JS • REACT • TYPESCRIPT
+            </span>
+            <span className="h-4 w-4 rounded-full bg-[#2176ff]/60" />
+            <span className="font-display text-6xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white/30">
+              DISTRIBUTED ARCHITECTURE
+            </span>
+          </div>
+        </div>
+
+        {/* Halden Massive Statement Footer & Contact ("Got a Vision? Let's Build It.") */}
+        <section id="contact" className="relative overflow-hidden border-t border-white/10 px-6 py-28 sm:px-10 lg:py-40 bg-[#040405]">
+          {/* Outro Ambient Spotlight & Glow */}
+          <div className="pointer-events-none absolute -bottom-32 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-t from-[#2176ff]/20 via-[#2176ff]/5 to-transparent blur-[140px]" />
+          <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#2176ff]/50 to-transparent" />
+
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-8">
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#2176ff]/30 bg-[#2176ff]/10 px-4 py-1.5 font-mono text-xs text-[#5c9bff]">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-[#2176ff]" />
-                  <span>Available for Full-Time Roles &amp; Collaborations</span>
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-[#2176ff] shadow-[0_0_10px_#2176ff]" />
+                  <span>Available for Full-Time Roles &amp; High-Impact Work</span>
                 </div>
 
-                <h2 className="mt-6 font-display text-5xl font-extrabold uppercase leading-[0.95] tracking-tight text-white sm:text-7xl lg:text-8xl">
+                <h2 className="mt-6 font-display text-5xl font-extrabold uppercase leading-[0.92] tracking-tight text-white sm:text-7xl lg:text-8xl">
                   Got a Vision? <br />
-                  <span className="text-[#2176ff]">Let&apos;s Build It.</span>
+                  <span className="bg-gradient-to-r from-[#2176ff] via-[#5c9bff] to-white bg-clip-text text-transparent">
+                    Let&apos;s Build It.
+                  </span>
                 </h2>
 
                 <p className="mt-8 max-w-xl font-sans text-base leading-relaxed text-[#9a9a9a]">
-                  Whether you are hiring for an engineering team, need full-stack architecture, or want to discuss ambitious software ideas — my inbox is always open.
+                  Whether you are building a mission-critical platform, optimizing system scale, or seeking a dedicated full-stack engineer — my inbox is always open.
                 </p>
 
                 {/* Direct Action Contacts */}
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <a
                     href={`mailto:${email}`}
-                    className="inline-flex items-center gap-3 rounded-full bg-[#edf5fc] px-8 py-4 font-heading text-sm font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white hover:shadow-[0_0_35px_rgba(33,118,255,0.45)]"
+                    className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-[#edf5fc] px-8 py-4 font-heading text-sm font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white hover:shadow-[0_0_40px_rgba(33,118,255,0.5)] hover:scale-105"
                   >
                     <Mail className="h-4 w-4" />
                     <span>Send Direct Email</span>
+                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </a>
 
                   <button
                     onClick={handleCopyEmail}
-                    className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/[0.04] px-6 py-4 font-mono text-xs text-white transition-all hover:border-white/40 hover:bg-white/10"
+                    className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/[0.04] px-7 py-4 font-mono text-xs text-white transition-all hover:border-white/40 hover:bg-white/10"
                   >
                     {copied ? (
                       <>
@@ -819,10 +877,10 @@ export default function PortfolioMain() {
                 </div>
               </div>
 
-              {/* Direct Info Card */}
-              <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 lg:col-span-4">
+              {/* Direct Info Card with Halden Glassmorphic Design */}
+              <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-[#0b0a0d]/90 p-8 shadow-2xl backdrop-blur-2xl lg:col-span-4 transition-all hover:border-[#2176ff]/50">
                 <div className="font-mono text-xs uppercase tracking-wider text-[#9a9a9a]">Direct Reach</div>
-                <div className="mt-4 space-y-4">
+                <div className="mt-6 space-y-5">
                   <div>
                     <div className="text-[11px] font-mono text-white/40 uppercase">Phone / WhatsApp</div>
                     <div className="font-heading text-lg font-bold text-white">{phone}</div>
@@ -845,37 +903,53 @@ export default function PortfolioMain() {
                       href="https://github.com/yash130413"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white/80 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/10 hover:text-white"
+                      className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-white/80 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/20 hover:text-white hover:scale-105"
                       aria-label="GitHub"
                     >
-                      <GithubIcon className="h-4 w-4" />
+                      <GithubIcon className="h-5 w-5" />
                     </a>
                     <a
                       href="https://www.linkedin.com/in/yash-rohilla-088b83225/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white/80 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/10 hover:text-white"
+                      className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-white/80 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/20 hover:text-white hover:scale-105"
                       aria-label="LinkedIn"
                     >
-                      <LinkedinIcon className="h-4 w-4" />
+                      <LinkedinIcon className="h-5 w-5" />
                     </a>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Editorial Footer Bottom Bar */}
-            <div className="mt-24 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
-              <div className="font-mono text-xs text-white/40">
-                © 2026 Yash Rohilla. All rights reserved.
+            {/* Epic Layered Outro: Quote Floating Directly OVER Massive Watermark */}
+            <div className="relative mt-28 overflow-hidden border-t border-white/10 pt-20 pb-12 text-center select-none">
+              {/* Massive Backdrop Watermark (Layer Behind) */}
+              <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 font-display text-[14vw] font-black uppercase leading-none tracking-tighter text-white/[0.04]">
+                YASH ROHILLA
+              </div>
+
+              {/* Bold Quote Layer (Directly On Top of the Watermark) */}
+              <div className="relative z-10 mx-auto max-w-3xl px-4 py-8">
+                <p className="font-display text-2xl font-bold uppercase leading-snug tracking-tight text-white drop-shadow-2xl sm:text-3xl lg:text-4xl">
+                  &ldquo;Architecture isn&apos;t just about making things work — it&apos;s about building systems that refuse to fail.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            {/* Editorial Footer Bottom Bar (Last Element) */}
+            <div className="mt-8 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
+              <div className="flex items-center gap-3 font-mono text-xs text-white/40">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                <span>© 2026 Yash Rohilla. All rights reserved.</span>
               </div>
 
               <button
                 onClick={scrollToTop}
-                className="group flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 font-mono text-xs text-white/60 transition-all hover:border-white/40 hover:text-white"
+                className="group flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.03] px-5 py-2.5 font-mono text-xs text-white/70 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/10 hover:text-white"
               >
                 <span>Back to Top</span>
-                <ArrowUp className="h-3 w-3 transition-transform group-hover:-translate-y-0.5" />
+                <ArrowUp className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-1 text-[#2176ff]" />
               </button>
             </div>
           </div>
