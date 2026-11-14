@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Yash Rohilla | Full-Stack Developer & Software Engineer",
   description:
-    "Portfolio of Yash Rohilla — Third-year B.Tech CS Student at Bennett University and Ex-Full Stack Intern at Xebia.",
+    "Portfolio of Yash Rohilla — B.Tech Computer Science Student at Bennett University and Full-Stack Software Engineer.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

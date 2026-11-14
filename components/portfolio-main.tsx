@@ -1,30 +1,29 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
   ArrowUpRight,
+  ArrowRight,
   Mail,
+  Copy,
+  Check,
+  ArrowUp,
+  Sparkles,
+  Layers,
+  Cpu,
+  Database,
   ExternalLink,
   Code2,
-  Cpu,
-  Layers,
-  Sparkles,
   Terminal,
-  Check,
-  Copy,
-  ArrowUp,
-  Briefcase,
-  GraduationCap,
-  Database,
-  Cloud,
-  Phone,
+  Activity,
   Calendar,
   MapPin,
+  Clock,
+  ShieldCheck,
   CheckCircle2,
-  Activity,
-  Zap,
 } from "lucide-react"
 
+// Social / Brand Icons
 function GithubIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -53,9 +52,12 @@ function GfgIcon({ className = "h-4 w-4" }: { className?: string }) {
 }
 
 interface Project {
+  number: string
   title: string
   subtitle: string
   category: string
+  metric: string
+  metricLabel: string
   description: string
   highlights: string[]
   tags: string[]
@@ -64,13 +66,16 @@ interface Project {
   githubUrl: string
 }
 
-const FEATURED_PROJECTS: Project[] = [
+const PROJECTS: Project[] = [
   {
+    number: "01",
     title: "Ledgerly",
     subtitle: "AI Spend Optimization Platform",
-    category: "Full-Stack • AI Audit Engine",
+    category: "Full-Stack • Rule Audit Engine",
+    metric: "13-Check",
+    metricLabel: "Audit engine flagging redundant AI costs",
     description:
-      "A full-stack AI spend optimization platform enabling engineering & finance teams to audit spend across 5 AI providers and share finance-ready audit reports without requiring users to sign in.",
+      "A full-stack AI spend optimization platform enabling engineering & finance teams to audit spend across 5 AI providers and share finance-ready audit reports with zero login friction.",
     highlights: [
       "Engineered a 13-check audit engine that flags underused and overlapping subscriptions.",
       "Ranks recommendations dynamically by estimated annual savings and cost efficiencies.",
@@ -83,9 +88,12 @@ const FEATURED_PROJECTS: Project[] = [
     githubUrl: "https://github.com/yash130413/Ledgerly",
   },
   {
+    number: "02",
     title: "PharmaConnect",
     subtitle: "B2B Pharmaceutical Marketplace",
     category: "Full-Stack • Cloud Deployed",
+    metric: "-28%",
+    metricLabel: "Redundant query reduction via indexed Mongo APIs",
     description:
       "A production-grade B2B marketplace covering secure pharmaceutical product listings, batch ordering, real-time messaging, and high-concurrency order routing.",
     highlights: [
@@ -100,9 +108,12 @@ const FEATURED_PROJECTS: Project[] = [
     githubUrl: "https://github.com/yash130413/PharmaConnect-1",
   },
   {
+    number: "03",
     title: "GeoSight",
     subtitle: "Automated Geospatial Intelligence Platform",
     category: "GIS • Satellite Analytics",
+    metric: "5 States",
+    metricLabel: "Automated land cover classification across India",
     description:
       "An automated geospatial intelligence system for land cover classification and road connectivity analysis across 5 Indian states, powered by satellite imagery processing.",
     highlights: [
@@ -117,10 +128,81 @@ const FEATURED_PROJECTS: Project[] = [
   },
 ]
 
+const DISCIPLINES = [
+  {
+    step: "01",
+    name: "Architect & Model",
+    tagline: "Systems Design & Data Modeling",
+    description:
+      "Schema design, relational/document database optimization, microservice boundaries, and caching strategies (Redis, PostgreSQL, MongoDB).",
+  },
+  {
+    step: "02",
+    name: "Engineering & APIs",
+    tagline: "High-Throughput Full-Stack",
+    description:
+      "RESTful and real-time backend systems built with Node.js, Express, NestJS, and Next.js App Router with strict TypeScript verification.",
+  },
+  {
+    step: "03",
+    name: "High-Speed Interfaces",
+    tagline: "Micro-Interactions & Modern UI",
+    description:
+      "Pixel-perfection with Tailwind CSS, React, Framer motion principles, accessibility, and zero-jank responsive viewports.",
+  },
+  {
+    step: "04",
+    name: "Cloud & Reliability",
+    tagline: "AWS EC2, Nginx & DevOps",
+    description:
+      "Production deployment pipelines, SSL hardening, reverse proxies, environment segregation, and 99.9% uptime architectures.",
+  },
+]
+
+const SKILLS_MATRIX = [
+  {
+    category: "Languages",
+    items: ["TypeScript", "JavaScript (ES6+)", "Python", "C++", "SQL", "HTML5/CSS3"],
+  },
+  {
+    category: "Frameworks & Frontend",
+    items: ["Next.js (App Router)", "React.js", "Tailwind CSS", "Redux Toolkit", "Leaflet", "Shadcn UI"],
+  },
+  {
+    category: "Backend & Systems",
+    items: ["Node.js", "Express.js", "NestJS", "Flask", "REST APIs", "Socket.IO", "Redis"],
+  },
+  {
+    category: "Databases & Cloud",
+    items: ["MongoDB", "PostgreSQL", "Supabase", "AWS (EC2, S3)", "Nginx Reverse Proxy", "Docker", "Git/GitHub"],
+  },
+]
+
 export default function PortfolioMain() {
   const [copied, setCopied] = useState(false)
+  const [activeTab, setActiveTab] = useState("all")
+  const [soundEnabled, setSoundEnabled] = useState(false)
+  const [currentTime, setCurrentTime] = useState("")
+
   const email = "yashrohilla1204@gmail.com"
   const phone = "+91 9354139378"
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date()
+      setCurrentTime(
+        now.toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        })
+      )
+    }
+    updateTime()
+    const timer = setInterval(updateTime, 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email)
@@ -133,853 +215,602 @@ export default function PortfolioMain() {
   }
 
   return (
-    <div id="portfolio-main" className="relative min-h-screen bg-[#05070d] text-[#f2f4f8] font-body antialiased">
-      {/* Fixed City Background matching the Metro video nightscape */}
+    <div id="portfolio-main" className="relative min-h-screen bg-[#080708] text-[#edf5fc] font-sans antialiased selection:bg-[#2176ff] selection:text-white">
+      {/* Editorial Grain Overlay */}
+      <div
+        className="pointer-events-none fixed inset-0 z-50 opacity-[0.025]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+
+      {/* Subtle Halden Sky Light Ambience */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        {/* City image extracted directly from the video */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/city-bg.jpg')",
-            filter: "brightness(0.65) contrast(1.15)",
-          }}
-        />
-
-        {/* Dark cinematic vignette & atmospheric gradients for 100% text readability */}
-        <div className="absolute inset-0 bg-[#05070d]/70 backdrop-blur-[2.5px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#05070d]/35 via-[#05070d]/75 to-[#05070d]" />
-
-        {/* Subtle city-matched neon radial glows */}
-        <div className="absolute -top-40 left-1/4 h-[500px] w-[500px] rounded-full bg-cyan-500/15 blur-[140px]" />
-        <div className="absolute top-1/2 right-10 h-[600px] w-[600px] rounded-full bg-blue-600/15 blur-[160px]" />
-        <div className="absolute bottom-10 left-1/3 h-[500px] w-[500px] rounded-full bg-indigo-500/15 blur-[150px]" />
+        <div className="absolute -top-[25vw] left-[15vw] h-[55vw] w-[55vw] rounded-full bg-gradient-to-br from-[#2176ff]/10 via-[#5c9bff]/5 to-transparent blur-[140px]" />
+        <div className="absolute top-[45vh] right-[-10vw] h-[45vw] w-[45vw] rounded-full bg-gradient-to-bl from-[#2176ff]/8 via-transparent to-transparent blur-[160px]" />
       </div>
 
-      {/* Navigation Bar */}
-      <header className="sticky top-0 z-40 border-b border-white/5 bg-[#05070d]/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      {/* Halden Floating Header with Capsule Navigation */}
+      <header className="fixed inset-x-0 top-0 z-40 transition-all duration-500 bg-[#080708]/75 backdrop-blur-md border-b border-white/[0.06]">
+        <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-6 sm:px-10">
+          {/* Studio Brandmark */}
           <a
             href="#portfolio-main"
-            className="flex items-center gap-2.5 font-display text-base font-extrabold tracking-wider text-white"
+            className="group flex items-baseline gap-1 font-display text-2xl font-extrabold tracking-tight text-white transition-opacity hover:opacity-90"
           >
-            <span className="flex h-2.5 w-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
-            YASH ROHILLA
+            <span>Yash Rohilla</span>
+            <span className="text-[10px] font-mono font-medium text-[#2176ff]">®</span>
           </a>
 
-          <nav className="hidden items-center gap-7 font-heading text-xs font-semibold tracking-wide text-white/60 md:flex">
-            <a href="#about" className="transition-colors hover:text-cyan-300">
-              // 01. About
+          {/* Scandinavian Center Capsule Dock */}
+          <nav className="hidden items-center rounded-full border border-white/10 bg-[#121113]/90 p-1.5 shadow-2xl backdrop-blur-xl md:flex">
+            <a
+              href="#about"
+              className="rounded-full px-5 py-2 font-heading text-xs font-medium tracking-wide text-white/70 transition-all hover:bg-white/10 hover:text-white"
+            >
+              About
             </a>
-            <a href="#experience" className="transition-colors hover:text-cyan-300">
-              // 02. Experience
+            <a
+              href="#work"
+              className="rounded-full px-5 py-2 font-heading text-xs font-medium tracking-wide text-white/70 transition-all hover:bg-white/10 hover:text-white"
+            >
+              Work
             </a>
-            <a href="#projects" className="transition-colors hover:text-cyan-300">
-              // 03. Projects
+            <a
+              href="#experience"
+              className="rounded-full px-5 py-2 font-heading text-xs font-medium tracking-wide text-white/70 transition-all hover:bg-white/10 hover:text-white"
+            >
+              Experience
             </a>
-            <a href="#skills" className="transition-colors hover:text-cyan-300">
-              // 04. Skills
+            <a
+              href="#services"
+              className="rounded-full px-5 py-2 font-heading text-xs font-medium tracking-wide text-white/70 transition-all hover:bg-white/10 hover:text-white"
+            >
+              Disciplines
             </a>
-            <a href="#education" className="transition-colors hover:text-cyan-300">
-              // 05. Education
-            </a>
-            <a href="#contact" className="transition-colors hover:text-cyan-300">
-              // 06. Contact
+            <a
+              href="#skills"
+              className="rounded-full px-5 py-2 font-heading text-xs font-medium tracking-wide text-white/70 transition-all hover:bg-white/10 hover:text-white"
+            >
+              Capabilities
             </a>
           </nav>
 
-          <a
-            href="#contact"
-            className="group flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-1.5 font-heading text-xs font-semibold text-cyan-300 transition-all hover:border-cyan-400 hover:bg-cyan-500/20 hover:shadow-[0_0_16px_rgba(34,211,238,0.3)]"
-          >
-            <span>Let&apos;s Connect</span>
-            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+          {/* Right Header Actions: Time Indicator & CTA */}
+          <div className="flex items-center gap-3.5">
+            {/* Live Clock / Location Tag */}
+            <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 font-mono text-[11px] text-white/60 lg:flex">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+              <span>DELHI NCR {currentTime || "03:45 PM"}</span>
+            </div>
+
+            {/* Let's Talk Magnetic Halden Capsule Button */}
+            <a
+              href="#contact"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-[#edf5fc] px-5 py-2.5 font-heading text-xs font-bold text-[#080708] transition-all hover:bg-[#2176ff] hover:text-white hover:shadow-[0_0_25px_rgba(33,118,255,0.45)]"
+            >
+              <span className="flex items-center gap-2">
+                <span>Let&apos;s Connect</span>
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+            </a>
+          </div>
         </div>
       </header>
 
-      {/* Main Hero Section: Two-Column High-Impact Creative Showcase */}
-      <section className="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl flex-col justify-center px-6 py-16 sm:py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-12">
-          {/* Left Column: Headlines & CTAs */}
-          <div className="lg:col-span-7">
-            {/* Status indicator badge */}
-            <div className="inline-flex w-fit items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-4 py-1.5 text-xs font-medium text-emerald-400 backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              Third-Year CS @ Bennett University • Ex-Intern @ Xebia
+      {/* Main Content Area */}
+      <main className="relative z-10 pt-[110px]">
+        {/* Halden Massive Statement Hero Section */}
+        <section className="relative px-6 py-16 sm:px-10 lg:py-24">
+          <div className="mx-auto max-w-7xl">
+            {/* Top Eyebrow Metadata Grid */}
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6 font-mono text-xs uppercase tracking-widest text-[#9a9a9a]">
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-[#2176ff]" />
+                <span>Full-Stack Engineer &amp; Software Builder</span>
+              </div>
+              <div className="flex items-center gap-6">
+                <span>Bennett Univ • CGPA 8.22</span>
+                <span className="hidden sm:inline">Ex-Xebia Intern</span>
+                <span className="text-emerald-400 font-semibold">● Open for Roles</span>
+              </div>
             </div>
 
-            {/* Stylized Display Headline */}
-            <div className="mt-8">
-              <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08]">
-                Hi, I&apos;m{" "}
-                <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(34,211,238,0.3)]">
-                  Yash Rohilla
+            {/* Halden Iconic Headline */}
+            <div className="my-8">
+              <h1 className="font-display text-[11vw] font-extrabold uppercase leading-[0.92] tracking-tighter text-white sm:text-[9.2vw] lg:text-[7.2vw]">
+                <span>I Build Systems</span>
+                <br />
+                <span className="text-white/40">People </span>
+                <span className="bg-gradient-to-r from-[#2176ff] via-[#5c9bff] to-white bg-clip-text text-transparent">
+                  Rely On.
                 </span>
-                .<br />
-                <span className="text-white/95">Full-Stack Developer</span> &amp;{" "}
-                <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent">
-                  Systems Engineer
-                </span>
-                .
               </h1>
-              <p className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-white/70">
-                Crafting real-time distributed backends, multiplayer systems with{" "}
-                <strong className="text-white">Socket.IO &amp; Redis</strong>, robust Controller-Service-Repository
-                APIs, and deploying high-performance cloud applications on{" "}
-                <strong className="text-white">AWS EC2 with Nginx</strong>.
-              </p>
             </div>
 
-            {/* CTAs */}
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a
-                href="#projects"
-                className="group flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-400 px-6 py-3 font-heading text-sm font-bold text-black transition-all hover:shadow-[0_0_28px_rgba(34,211,238,0.5)] hover:scale-[1.02]"
-              >
-                <span>View Featured Projects</span>
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-
-              <a
-                href={`mailto:${email}`}
-                className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3 font-heading text-sm font-semibold text-white transition-all hover:border-cyan-400/40 hover:bg-white/10"
-              >
-                <Mail className="h-4 w-4 text-cyan-400" />
-                <span>{email}</span>
-              </a>
-
-              {/* Social / Profile Icons */}
-              <div className="flex items-center gap-2 sm:ml-2">
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub Profile"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/70 transition-all hover:border-cyan-400/40 hover:bg-white/10 hover:text-white hover:scale-105"
-                >
-                  <GithubIcon className="h-4 w-4" />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn Profile"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/70 transition-all hover:border-cyan-400/40 hover:bg-white/10 hover:text-white hover:scale-105"
-                >
-                  <LinkedinIcon className="h-4 w-4" />
-                </a>
-                <a
-                  href="https://geeksforgeeks.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GeeksforGeeks Profile"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/70 transition-all hover:border-cyan-400/40 hover:bg-white/10 hover:text-white hover:scale-105"
-                >
-                  <GfgIcon className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
-
-            {/* Highlight counters */}
-            <div className="mt-14 grid grid-cols-2 gap-6 border-t border-white/10 pt-8 sm:grid-cols-4">
-              <div>
-                <div className="font-display text-3xl sm:text-4xl font-extrabold text-cyan-400">8.22</div>
-                <div className="mt-1 font-heading text-xs font-semibold uppercase tracking-wider text-white/50">
-                  CGPA @ Bennett Univ
-                </div>
-              </div>
-              <div>
-                <div className="font-display text-3xl sm:text-4xl font-extrabold text-white">300+</div>
-                <div className="mt-1 font-heading text-xs font-semibold uppercase tracking-wider text-white/50">
-                  DSA Problems Solved
-                </div>
-              </div>
-              <div>
-                <div className="font-display text-3xl sm:text-4xl font-extrabold text-white">Xebia</div>
-                <div className="mt-1 font-heading text-xs font-semibold uppercase tracking-wider text-white/50">
-                  Ex-Full Stack Intern
-                </div>
-              </div>
-              <div>
-                <div className="font-display text-3xl sm:text-4xl font-extrabold text-white">AWS &amp; Nginx</div>
-                <div className="mt-1 font-heading text-xs font-semibold uppercase tracking-wider text-white/50">
-                  Production Cloud
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Interactive Code & Architecture IDE Terminal Card */}
-          <div className="lg:col-span-5">
-            <div className="relative mx-auto max-w-lg overflow-hidden rounded-3xl border border-cyan-500/20 bg-[#090d16]/90 p-1 shadow-[0_0_50px_rgba(34,211,238,0.12)] backdrop-blur-2xl transition-all duration-500 hover:border-cyan-400/50 hover:shadow-[0_0_70px_rgba(34,211,238,0.2)]">
-              {/* Terminal window top bar */}
-              <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-4 py-3">
-                <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-red-500/80 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
-                  <span className="h-3 w-3 rounded-full bg-amber-500/80 shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
-                  <span className="h-3 w-3 rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                  <span className="ml-2 rounded-md bg-white/5 px-2 py-0.5 font-mono text-[11px] text-cyan-300">
-                    yash.config.ts
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 font-mono text-[11px] text-emerald-400">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                  <span>runtime: ready</span>
-                </div>
-              </div>
-
-              {/* Live IDE Code Body */}
-              <div className="p-5 font-mono text-xs leading-relaxed selection:bg-cyan-500/30">
-                <div className="flex gap-4 text-white/30 select-none">
-                  <div className="flex flex-col text-right font-mono text-[11px] leading-[22px] text-white/20">
-                    <span>01</span>
-                    <span>02</span>
-                    <span>03</span>
-                    <span>04</span>
-                    <span>05</span>
-                    <span>06</span>
-                    <span>07</span>
-                    <span>08</span>
-                    <span>09</span>
-                    <span>10</span>
-                    <span>11</span>
-                    <span>12</span>
-                    <span>13</span>
-                  </div>
-
-                  <div className="flex-1 overflow-x-auto text-[11.5px] leading-[22px]">
-                    <div>
-                      <span className="text-purple-400">const</span>{" "}
-                      <span className="text-cyan-300">engineer</span>:{" "}
-                      <span className="text-amber-300">DeveloperProfile</span> = &#123;
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-white/70">name:</span>{" "}
-                      <span className="text-emerald-300">&quot;Yash Rohilla&quot;</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-white/70">focus:</span>{" "}
-                      <span className="text-emerald-300">&quot;Full-Stack &amp; Scalable Systems&quot;</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-white/70">education:</span>{" "}
-                      <span className="text-emerald-300">&quot;Bennett University (CGPA 8.22)&quot;</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-white/70">stack:</span> [
-                      <span className="text-sky-300">&quot;Next.js&quot;</span>,{" "}
-                      <span className="text-sky-300">&quot;Node.js&quot;</span>,{" "}
-                      <span className="text-sky-300">&quot;AWS&quot;</span>,{" "}
-                      <span className="text-sky-300">&quot;Redis&quot;</span>
-                      ],
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-white/70">dsaSolved:</span>{" "}
-                      <span className="text-amber-400 font-bold">300</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-white/70">status:</span>{" "}
-                      <span className="text-emerald-400">&quot;Ready for High-Impact Roles&quot;</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-cyan-400">executeCode</span>: () =&gt; &#123;
-                    </div>
-                    <div className="pl-8 text-white/50">
-                      <span className="text-purple-400">return</span>{" "}
-                      <span className="text-cyan-300">transformImaginationIntoCode</span>();
-                    </div>
-                    <div className="pl-4">&#125;,</div>
-                    <div>&#125;;</div>
-                    <div className="mt-2 text-white/40">
-                      <span className="text-cyan-400">$</span> deploy --target production
-                    </div>
-                    <div className="text-emerald-400/90 font-semibold">
-                      ✔ Build compiled in 184ms • All systems operational
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* System telemetry footer metrics */}
-              <div className="grid grid-cols-3 gap-2 border-t border-white/10 bg-black/40 p-3 font-mono text-[11px]">
-                <div className="rounded-xl border border-white/5 bg-white/[0.02] p-2.5">
-                  <div className="text-[9px] uppercase tracking-wider text-white/40">LATENCY</div>
-                  <div className="font-bold text-emerald-400">12ms (Optimized)</div>
-                </div>
-                <div className="rounded-xl border border-white/5 bg-white/[0.02] p-2.5">
-                  <div className="text-[9px] uppercase tracking-wider text-white/40">ARCHITECTURE</div>
-                  <div className="font-bold text-cyan-300">CSR + Microservices</div>
-                </div>
-                <div className="rounded-xl border border-white/5 bg-white/[0.02] p-2.5">
-                  <div className="text-[9px] uppercase tracking-wider text-white/40">UPTIME</div>
-                  <div className="font-bold text-white">99.98% EC2</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section: Split Story & Engineering Visual */}
-      <section id="about" className="relative z-10 mx-auto max-w-7xl px-6 py-28 border-t border-white/5">
-        <div className="grid items-center gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-6">
-            <div className="font-heading text-xs font-bold uppercase tracking-widest text-cyan-400">
-              // 01. Background & Profile
-            </div>
-            <h2 className="mt-3 font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
-              Engineering resilient backends &amp; high-precision digital products.
-            </h2>
-            <div className="mt-6 flex flex-col gap-3 font-mono text-xs text-white/70">
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-cyan-400" />
-                <span>Bennett University, Greater Noida, Uttar Pradesh</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-cyan-400" />
-                <span>{email}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-cyan-400" />
-                <span>{phone}</span>
-              </div>
-            </div>
-
-            <div className="mt-6 space-y-4 text-sm sm:text-base leading-relaxed text-white/70">
-              <p>
-                I am a third-year Computer Science student at <strong>Bennett University</strong>. My core
-                engineering focus lies in building scalable distributed systems, high-concurrency state
-                synchronization, and full-stack web applications.
-              </p>
-              <p>
-                During my internship at <strong>Xebia</strong>, I engineered backend modules for a Kahoot-style
-                interactive learning platform, implementing role-based access control (RBAC), multiplayer
-                sessions with <strong>Socket.IO and Redis</strong>, and high-throughput REST APIs following the{" "}
-                <strong>Controller-Service-Repository</strong> design pattern.
-              </p>
-            </div>
-
-            <div className="mt-6 flex items-center gap-3 font-mono text-xs text-cyan-300">
-              <Terminal className="h-4 w-4" />
-              <span>Core Stack: Node.js • TypeScript • Redis • Socket.IO • PostgreSQL • AWS</span>
-            </div>
-          </div>
-
-          {/* About Visual Card */}
-          <div className="lg:col-span-6">
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-3 shadow-xl backdrop-blur-md">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-black/60">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
-                  alt="Software Architecture & Teamwork"
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#05070d] via-transparent to-black/20" />
-                <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-white/10 bg-black/70 p-4 backdrop-blur-md">
-                  <div className="font-heading text-xs font-bold uppercase tracking-wider text-cyan-400">
-                    Philosophy
-                  </div>
-                  <div className="mt-1 text-sm font-semibold text-white">
-                    Clean Code • Measurable Performance • Zero Redundant Queries
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Internship & Experience Section with Visual Illustration */}
-      <section id="experience" className="relative z-10 mx-auto max-w-7xl px-6 py-28 border-t border-white/5">
-        <div>
-          <div className="font-heading text-xs font-bold uppercase tracking-widest text-cyan-400">
-            // 02. Professional Experience
-          </div>
-          <h2 className="mt-3 font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Internship Journey
-          </h2>
-        </div>
-
-        <div className="mt-12 grid gap-8 lg:grid-cols-12 rounded-3xl border border-white/10 bg-white/[0.02] p-8 sm:p-12 backdrop-blur-xl transition-all hover:border-cyan-500/30">
-          {/* Left: Text & Achievements */}
-          <div className="lg:col-span-7">
-            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center border-b border-white/5 pb-6">
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/25">
-                  <Briefcase className="h-6 w-6" />
-                </div>
-                <div>
-                  <h3 className="font-display text-2xl font-bold text-white">Full Stack Developer Intern</h3>
-                  <div className="font-heading text-sm font-bold text-cyan-400">Xebia</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 font-mono text-xs text-white/50">
-                <Calendar className="h-4 w-4" />
-                <span>June 2026 – July 2026</span>
-              </div>
-            </div>
-
-            <ul className="mt-6 space-y-4 text-sm leading-relaxed text-white/75">
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-cyan-400 mt-1" />
-                <span>
-                  Contributed to building a <strong>Kahoot-style interactive learning platform</strong> using{" "}
-                  <strong>React.js, TypeScript, Node.js, Redis, and PostgreSQL</strong>, enabling live quizzes,
-                  assessments, synchronized multiplayer sessions, and automated real-time scoring.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-cyan-400 mt-1" />
-                <span>
-                  Built backend modules for profile management and <strong>role-based access control (RBAC)</strong>,
-                  and engineered real-time multiplayer state synchronization using <strong>Socket.IO</strong> and{" "}
-                  <strong>Redis</strong>.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-cyan-400 mt-1" />
-                <span>
-                  Developed high-throughput <strong>REST APIs</strong> for users, quizzes, assessments, AI-generated quizzes,
-                  scoring, and real-time leaderboards following strict <strong>Controller-Service-Repository architecture</strong>.
-                </span>
-              </li>
-            </ul>
-
-            <div className="mt-8 flex flex-wrap gap-2 pt-6 border-t border-white/5">
-              {["React.js", "TypeScript", "Node.js", "Redis", "PostgreSQL", "Socket.IO", "RBAC", "Controller-Service-Repo"].map(
-                (skill, sIdx) => (
-                  <span
-                    key={sIdx}
-                    className="rounded-lg border border-cyan-500/20 bg-cyan-500/10 px-3 py-1 font-mono text-xs font-semibold text-cyan-300"
+            {/* Lower Hero Split: Manifesto & Core Metrics */}
+            <div className="mt-14 grid gap-10 border-t border-white/10 pt-10 lg:grid-cols-12 lg:items-end">
+              <div className="lg:col-span-7">
+                <p className="font-sans text-xl leading-relaxed font-light text-[#edf5fc]/85 sm:text-2xl">
+                  Engineering high-concurrency web systems, real-time architectures, and frictionless digital products.
+                  Bridging disciplined system design with speed, resilience, and micro-interaction polish.
+                </p>
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <a
+                    href="#work"
+                    className="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 font-heading text-sm font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white hover:shadow-[0_0_30px_rgba(33,118,255,0.4)]"
                   >
-                    {skill}
-                  </span>
-                )
-              )}
-            </div>
-          </div>
+                    <span>Explore Selected Work</span>
+                    <ArrowDownIcon className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+                  </a>
 
-          {/* Right: Xebia Project Context Visual */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/60 p-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=80"
-                alt="Interactive Multiplayer Learning Platform"
-                className="aspect-[4/3] w-full rounded-xl object-cover"
-              />
-              <div className="p-3">
-                <div className="font-heading text-xs font-bold text-white">Interactive Multiplayer Platform</div>
-                <div className="mt-0.5 font-mono text-[11px] text-white/50">
-                  Real-time live session synchronization with Redis Pub/Sub
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Projects Section with High-Impact Domain Imagery */}
-      <section id="projects" className="relative z-10 mx-auto max-w-7xl px-6 py-28 border-t border-white/5">
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <div className="font-heading text-xs font-bold uppercase tracking-widest text-cyan-400">
-              // 03. Production Projects
-            </div>
-            <h2 className="mt-3 font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-              Featured Work
-            </h2>
-          </div>
-          <p className="max-w-md text-sm text-white/60">
-            Real-world systems demonstrating full-stack engineering, rule-engine design, cloud deployments, and spatial data.
-          </p>
-        </div>
-
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
-          {FEATURED_PROJECTS.map((project, idx) => (
-            <div
-              key={idx}
-              className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/40 hover:bg-white/[0.04] hover:-translate-y-1"
-            >
-              {/* Project Image */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/60">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#05070d] via-transparent to-black/30" />
-                <div className="absolute top-4 left-4 rounded-full border border-white/20 bg-black/70 px-3.5 py-1 font-mono text-[10px] uppercase tracking-wider text-cyan-300 backdrop-blur-md">
-                  {project.category}
+                  <button
+                    onClick={handleCopyEmail}
+                    className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3.5 font-mono text-xs font-medium text-white/90 backdrop-blur-md transition-all hover:border-white/30 hover:bg-white/10"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="h-4 w-4 text-emerald-400" />
+                        <span className="text-emerald-400 font-semibold">Email Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-4 w-4 text-white/50" />
+                        <span>{email}</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
 
-              {/* Project Content */}
-              <div className="flex flex-1 flex-col p-6 sm:p-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="font-display text-xl font-bold text-white transition-colors group-hover:text-cyan-300">
-                      {project.title}
-                    </h3>
-                    <div className="text-xs text-white/50 font-mono mt-0.5">{project.subtitle}</div>
+              {/* Halden Stat Numbers */}
+              <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:col-span-5 lg:gap-4">
+                <div className="border-l border-white/10 pl-4">
+                  <div className="font-display text-4xl font-extrabold text-white">8.22</div>
+                  <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
+                    CGPA • Bennett
                   </div>
-                  <div className="flex items-center gap-2">
+                </div>
+                <div className="border-l border-white/10 pl-4">
+                  <div className="font-display text-4xl font-extrabold text-[#2176ff]">300+</div>
+                  <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
+                    DSA Solved
+                  </div>
+                </div>
+                <div className="border-l border-white/10 pl-4">
+                  <div className="font-display text-4xl font-extrabold text-white">03</div>
+                  <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
+                    Flagship Builds
+                  </div>
+                </div>
+                <div className="border-l border-white/10 pl-4">
+                  <div className="font-display text-4xl font-extrabold text-emerald-400">99.9%</div>
+                  <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
+                    Cloud Uptime
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Selected Work Section (Halden Full-Width Showcase) */}
+        <section id="work" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
+          <div className="mx-auto max-w-7xl">
+            {/* Section Header */}
+            <div className="mb-16 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                  // 01. Portfolio Index
+                </span>
+                <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl">
+                  Selected <span className="text-[#2176ff]">Work</span>
+                </h2>
+              </div>
+              <p className="max-w-md font-sans text-sm font-light text-[#9a9a9a]">
+                Production systems, high-speed interfaces, and automated rule engines engineered with Next.js, Node, and AWS.
+              </p>
+            </div>
+
+            {/* Halden Project Cards Stack */}
+            <div className="space-y-16 lg:space-y-24">
+              {PROJECTS.map((proj) => (
+                <article
+                  key={proj.title}
+                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0e0d0f] transition-all duration-700 hover:border-[#2176ff]/60 hover:shadow-[0_0_60px_rgba(33,118,255,0.15)]"
+                >
+                  <div className="grid lg:grid-cols-12">
+                    {/* Project Visual / Mockup */}
+                    <div className="relative aspect-[16/10] overflow-hidden bg-black/60 lg:col-span-7">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={proj.image}
+                        alt={proj.title}
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0e0d0f] via-transparent to-transparent opacity-80" />
+
+                      {/* Halden Corner Project Number */}
+                      <div className="absolute top-6 left-6 font-display text-3xl font-extrabold text-white/80 drop-shadow-md">
+                        {proj.number}
+                      </div>
+
+                      {/* Stat Badge */}
+                      <div className="absolute bottom-6 left-6 rounded-2xl border border-white/15 bg-black/75 px-4 py-2.5 backdrop-blur-xl">
+                        <div className="font-display text-2xl font-bold text-[#2176ff]">{proj.metric}</div>
+                        <div className="font-mono text-[10px] text-white/70">{proj.metricLabel}</div>
+                      </div>
+                    </div>
+
+                    {/* Project Information */}
+                    <div className="flex flex-col justify-between p-8 sm:p-12 lg:col-span-5">
+                      <div>
+                        <div className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                          {proj.category}
+                        </div>
+                        <h3 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                          {proj.title}
+                        </h3>
+                        <p className="mt-1 font-heading text-sm font-medium text-white/60">
+                          {proj.subtitle}
+                        </p>
+
+                        <p className="mt-6 font-sans text-sm leading-relaxed text-[#9a9a9a]">
+                          {proj.description}
+                        </p>
+
+                        {/* Architectural Highlights */}
+                        <ul className="mt-6 space-y-2.5">
+                          {proj.highlights.map((h, i) => (
+                            <li key={i} className="flex items-start gap-2.5 text-xs text-white/80">
+                              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
+                              <span>{h}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {/* Tech Tag Pills */}
+                        <div className="mt-8 flex flex-wrap gap-2">
+                          {proj.tags.map((t) => (
+                            <span
+                              key={t}
+                              className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[10px] text-white/70"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Action Links */}
+                      <div className="mt-10 flex items-center gap-4 border-t border-white/10 pt-6">
+                        {proj.liveUrl && (
+                          <a
+                            href={proj.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group/link inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 font-heading text-xs font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white"
+                          >
+                            <span>Live Application</span>
+                            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                          </a>
+                        )}
+
+                        <a
+                          href={proj.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/90 transition-all hover:border-white/40 hover:bg-white/10"
+                        >
+                          <GithubIcon className="h-3.5 w-3.5" />
+                          <span>Source Code</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Experience Section (Halden Editorial Timeline) */}
+        <section id="experience" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-12 lg:grid-cols-12">
+              <div className="lg:col-span-5">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                  // 02. Work History
+                </span>
+                <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl">
+                  Work <span className="text-[#2176ff]">Experience</span>
+                </h2>
+                <p className="mt-4 max-w-md font-sans text-sm leading-relaxed text-[#9a9a9a]">
+                  Engineering real-world systems, cross-functional collaboration, and production infrastructure.
+                </p>
+
+                {/* Bennett Campus Showcase */}
+                <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+                  <div className="font-mono text-[11px] text-[#2176ff] uppercase tracking-wider">Education</div>
+                  <div className="mt-1 font-display text-xl font-bold text-white">Bennett University</div>
+                  <div className="font-heading text-xs text-white/60">B.Tech in Computer Science &amp; Engineering</div>
+                  <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 font-mono text-xs text-white/70">
+                    <span>2023 – 2027</span>
+                    <span className="font-bold text-emerald-400">CGPA: 8.22</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Experience Details */}
+              <div className="space-y-8 lg:col-span-7">
+                <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 transition-all hover:border-[#2176ff]/50">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
+                    <div>
+                      <h3 className="font-display text-2xl font-bold text-white">Xebia</h3>
+                      <div className="font-heading text-sm text-[#2176ff]">Full Stack Development Intern</div>
+                    </div>
+                    <div className="font-mono text-xs text-[#9a9a9a]">
+                      June 2024 – Aug 2024
+                    </div>
+                  </div>
+
+                  <p className="mt-6 font-sans text-sm leading-relaxed text-[#9a9a9a]">
+                    Engineered enterprise frontend modules and high-throughput backend services. Designed performant UI components in React and optimized RESTful services with strict error handling.
+                  </p>
+
+                  <div className="mt-6 grid gap-3 font-sans text-xs text-white/80">
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
+                      <span>Built responsive, reusable UI components using React, Redux, and modern styling libraries.</span>
+                    </div>
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
+                      <span>Coordinated directly with senior architects on API contracts and performance benchmarking.</span>
+                    </div>
+                    <div className="flex items-start gap-2.5">
+                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
+                      <span>Streamlined frontend state flow and eliminated rendering bottlenecks across large datasets.</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {["React.js", "Redux", "REST APIs", "TypeScript", "Performance"].map((tag) => (
+                      <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] text-white/60">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Academic Highlights */}
+                <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
+                    <div>
+                      <h3 className="font-display text-xl font-bold text-white">CBSE Higher Secondary</h3>
+                      <div className="font-heading text-sm text-white/60">Rao Pahlad Singh Senior Secondary School</div>
+                    </div>
+                    <div className="font-mono text-xs text-emerald-400 font-semibold">
+                      Grade: 93.4%
+                    </div>
+                  </div>
+                  <p className="mt-4 font-sans text-xs text-[#9a9a9a]">
+                    Specialized in Physics, Chemistry, and Advanced Mathematics with top percentile distinction.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How We Work / Disciplines Section (Halden "Our Services") */}
+        <section id="services" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-16">
+              <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                // 03. Engineering Philosophy
+              </span>
+              <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl">
+                How I <span className="text-[#2176ff]">Build Systems</span>
+              </h2>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {DISCIPLINES.map((d) => (
+                <div
+                  key={d.step}
+                  className="group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 transition-all duration-300 hover:border-[#2176ff]/60 hover:bg-[#121114]"
+                >
+                  <div>
+                    <div className="font-mono text-xs font-bold text-[#2176ff]">{d.step}</div>
+                    <h3 className="mt-4 font-display text-xl font-bold text-white group-hover:text-[#2176ff] transition-colors">
+                      {d.name}
+                    </h3>
+                    <div className="mt-1 font-mono text-[11px] text-[#9a9a9a]">{d.tagline}</div>
+                    <p className="mt-4 font-sans text-xs leading-relaxed text-[#9a9a9a]">
+                      {d.description}
+                    </p>
+                  </div>
+                  <div className="mt-8 pt-4 border-t border-white/5">
+                    <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-white/40 group-hover:text-white transition-colors">
+                      <span>Strict Verification</span>
+                      <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Capabilities / Skills Matrix (Halden Grid) */}
+        <section id="skills" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-16 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                  // 04. Technical Arsenal
+                </span>
+                <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl">
+                  Skills &amp; <span className="text-[#2176ff]">Capabilities</span>
+                </h2>
+              </div>
+              <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-xs text-white/80">
+                <Terminal className="h-3.5 w-3.5 text-[#2176ff]" />
+                <span>300+ LeetCode &amp; GFG Problems Mastered</span>
+              </div>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {SKILLS_MATRIX.map((s) => (
+                <div
+                  key={s.category}
+                  className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8"
+                >
+                  <div className="font-display text-lg font-bold text-white border-b border-white/10 pb-4">
+                    {s.category}
+                  </div>
+                  <ul className="mt-6 space-y-3 font-mono text-xs text-white/80">
+                    {s.items.map((item) => (
+                      <li key={item} className="flex items-center gap-2.5">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#2176ff]" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Halden Massive Statement Footer & Contact ("Got a Brief? Let's Talk") */}
+        <section id="contact" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-36 bg-[#060506]">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
+              <div className="lg:col-span-8">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#2176ff]/30 bg-[#2176ff]/10 px-4 py-1.5 font-mono text-xs text-[#5c9bff]">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-[#2176ff]" />
+                  <span>Available for Full-Time Roles &amp; Collaborations</span>
+                </div>
+
+                <h2 className="mt-6 font-display text-5xl font-extrabold uppercase leading-[0.95] tracking-tight text-white sm:text-7xl lg:text-8xl">
+                  Got a Vision? <br />
+                  <span className="text-[#2176ff]">Let&apos;s Build It.</span>
+                </h2>
+
+                <p className="mt-8 max-w-xl font-sans text-base leading-relaxed text-[#9a9a9a]">
+                  Whether you are hiring for an engineering team, need full-stack architecture, or want to discuss ambitious software ideas — my inbox is always open.
+                </p>
+
+                {/* Direct Action Contacts */}
+                <div className="mt-10 flex flex-wrap items-center gap-4">
+                  <a
+                    href={`mailto:${email}`}
+                    className="inline-flex items-center gap-3 rounded-full bg-[#edf5fc] px-8 py-4 font-heading text-sm font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white hover:shadow-[0_0_35px_rgba(33,118,255,0.45)]"
+                  >
+                    <Mail className="h-4 w-4" />
+                    <span>Send Direct Email</span>
+                  </a>
+
+                  <button
+                    onClick={handleCopyEmail}
+                    className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/[0.04] px-6 py-4 font-mono text-xs text-white transition-all hover:border-white/40 hover:bg-white/10"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="h-4 w-4 text-emerald-400" />
+                        <span className="text-emerald-400 font-semibold">Copied to Clipboard!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-4 w-4 text-white/50" />
+                        <span>{email}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Direct Info Card */}
+              <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 lg:col-span-4">
+                <div className="font-mono text-xs uppercase tracking-wider text-[#9a9a9a]">Direct Reach</div>
+                <div className="mt-4 space-y-4">
+                  <div>
+                    <div className="text-[11px] font-mono text-white/40 uppercase">Phone / WhatsApp</div>
+                    <div className="font-heading text-lg font-bold text-white">{phone}</div>
+                  </div>
+                  <div>
+                    <div className="text-[11px] font-mono text-white/40 uppercase">Location</div>
+                    <div className="font-heading text-base text-white">Greater Noida / Delhi NCR, India</div>
+                  </div>
+                  <div>
+                    <div className="text-[11px] font-mono text-white/40 uppercase">Availability</div>
+                    <div className="font-heading text-base text-emerald-400 font-semibold">Immediate for 2025/2026 roles</div>
+                  </div>
+                </div>
+
+                {/* Social Profiles */}
+                <div className="mt-8 border-t border-white/10 pt-6">
+                  <div className="mb-3 font-mono text-[10px] uppercase tracking-wider text-white/40">Network</div>
+                  <div className="flex items-center gap-3">
                     <a
-                      href={project.githubUrl}
+                      href="https://github.com/yash130413"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="GitHub Repository"
-                      className="rounded-lg border border-white/10 p-2 text-white/60 transition-colors hover:border-white/30 hover:text-white"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white/80 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/10 hover:text-white"
+                      aria-label="GitHub"
                     >
                       <GithubIcon className="h-4 w-4" />
                     </a>
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Live Demo"
-                        className="rounded-lg border border-white/10 p-2 text-white/60 transition-colors hover:border-white/30 hover:text-white"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                <p className="mt-4 text-xs leading-relaxed text-white/70">
-                  {project.description}
-                </p>
-
-                {/* Highlights */}
-                <ul className="mt-4 space-y-2 text-xs text-white/60 flex-1">
-                  {project.highlights.map((h, hIdx) => (
-                    <li key={hIdx} className="flex items-start gap-2">
-                      <span className="text-cyan-400 mt-0.5 font-bold">›</span>
-                      <span>{h}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Tech tags */}
-                <div className="mt-6 flex flex-wrap gap-1.5 pt-4 border-t border-white/5">
-                  {project.tags.map((tag, tIdx) => (
-                    <span
-                      key={tIdx}
-                      className="rounded-md border border-white/5 bg-white/5 px-2.5 py-1 font-mono text-[11px] text-white/80"
+                    <a
+                      href="https://linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white/80 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/10 hover:text-white"
+                      aria-label="LinkedIn"
                     >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Technical Skills Section */}
-      <section id="skills" className="relative z-10 mx-auto max-w-7xl px-6 py-28 border-t border-white/5">
-        <div>
-          <div className="font-heading text-xs font-bold uppercase tracking-widest text-cyan-400">
-            // 04. Technical Capabilities
-          </div>
-          <h2 className="mt-3 font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Skills &amp; Arsenal
-          </h2>
-          <p className="mt-3 max-w-2xl text-sm text-white/60">
-            Technical foundation covering languages, frontend, backend frameworks, cloud infrastructure, and databases.
-          </p>
-        </div>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {/* Languages */}
-          <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/[0.04]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
-              <Code2 className="h-6 w-6" />
-            </div>
-            <h3 className="mt-5 font-heading text-lg font-bold text-white">Languages</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {["C", "C++", "Java", "TypeScript", "JavaScript (ES6+)", "Python"].map((skill, sIdx) => (
-                <span
-                  key={sIdx}
-                  className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 transition-colors hover:border-cyan-400/40 hover:text-white"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Backend & Real-Time */}
-          <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/[0.04]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
-              <Cpu className="h-6 w-6" />
-            </div>
-            <h3 className="mt-5 font-heading text-lg font-bold text-white">Backend &amp; Real-Time</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {["Node.js", "Express.js", "NestJS", "Flask", "REST APIs", "Redis", "Socket.IO"].map(
-                (skill, sIdx) => (
-                  <span
-                    key={sIdx}
-                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 transition-colors hover:border-cyan-400/40 hover:text-white"
-                  >
-                    {skill}
-                  </span>
-                )
-              )}
-            </div>
-          </div>
-
-          {/* Frontend */}
-          <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/[0.04]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
-              <Layers className="h-6 w-6" />
-            </div>
-            <h3 className="mt-5 font-heading text-lg font-bold text-white">Frontend</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {["React.js", "Next.js", "Tailwind CSS", "HTML5", "CSS3", "Leaflet.js"].map((skill, sIdx) => (
-                <span
-                  key={sIdx}
-                  className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 transition-colors hover:border-cyan-400/40 hover:text-white"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Databases */}
-          <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/[0.04]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
-              <Database className="h-6 w-6" />
-            </div>
-            <h3 className="mt-5 font-heading text-lg font-bold text-white">Databases &amp; ORMs</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {["MongoDB", "PostgreSQL", "MySQL", "Supabase", "Redis Cache"].map((skill, sIdx) => (
-                <span
-                  key={sIdx}
-                  className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 transition-colors hover:border-cyan-400/40 hover:text-white"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Cloud & Tools */}
-          <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/[0.04]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
-              <Cloud className="h-6 w-6" />
-            </div>
-            <h3 className="mt-5 font-heading text-lg font-bold text-white">Cloud &amp; DevOps</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {["AWS (EC2, Amplify)", "Docker", "Nginx", "GitHub Actions", "Vercel", "Git", "Postman"].map(
-                (skill, sIdx) => (
-                  <span
-                    key={sIdx}
-                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 transition-colors hover:border-cyan-400/40 hover:text-white"
-                  >
-                    {skill}
-                  </span>
-                )
-              )}
-            </div>
-          </div>
-
-          {/* Core CS Concepts */}
-          <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/[0.04]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
-              <Terminal className="h-6 w-6" />
-            </div>
-            <h3 className="mt-5 font-heading text-lg font-bold text-white">Core Computer Science</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {[
-                "Data Structures (300+ Solved)",
-                "Algorithms",
-                "DBMS",
-                "Operating Systems",
-                "Computer Networks",
-                "OOPs",
-                "Controller-Service-Repo",
-              ].map((skill, sIdx) => (
-                <span
-                  key={sIdx}
-                  className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 transition-colors hover:border-cyan-400/40 hover:text-white"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Education Section with Campus Architecture Visual */}
-      <section id="education" className="relative z-10 mx-auto max-w-7xl px-6 py-28 border-t border-white/5">
-        <div>
-          <div className="font-heading text-xs font-bold uppercase tracking-widest text-cyan-400">
-            // 05. Academic Background
-          </div>
-          <h2 className="mt-3 font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Education
-          </h2>
-        </div>
-
-        <div className="mt-12 grid gap-8 lg:grid-cols-12">
-          {/* Education List */}
-          <div className="lg:col-span-7 space-y-6">
-            {/* B.Tech */}
-            <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-xl transition-all hover:border-cyan-400/40">
-              <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                    <GraduationCap className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-lg font-bold text-white">Bachelor of Technology in Computer Science</h3>
-                    <div className="font-heading text-sm text-cyan-400 font-semibold">Bennett University, Greater Noida, Uttar Pradesh</div>
+                      <LinkedinIcon className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="https://geeksforgeeks.org"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white/80 transition-all hover:border-[#2176ff] hover:bg-[#2176ff]/10 hover:text-white"
+                      aria-label="GeeksforGeeks"
+                    >
+                      <GfgIcon className="h-4 w-4" />
+                    </a>
                   </div>
                 </div>
-
-                <div className="flex items-center gap-3 text-xs font-mono">
-                  <span className="rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3.5 py-1 text-emerald-400 font-bold">
-                    CGPA: 8.22
-                  </span>
-                  <span className="text-white/50">2024 – Present</span>
-                </div>
               </div>
             </div>
 
-            {/* 12th */}
-            <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-xl transition-all hover:border-white/20">
-              <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-                <div>
-                  <h3 className="font-display text-base font-bold text-white">Higher Secondary School – XII (CBSE)</h3>
-                  <div className="text-sm text-white/60">S D Memorial Senior Secondary School, Haryana</div>
-                </div>
-
-                <div className="flex items-center gap-3 text-xs font-mono">
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-white/90 font-bold">
-                    80%
-                  </span>
-                  <span className="text-white/50">2023</span>
-                </div>
+            {/* Editorial Footer Bottom Bar */}
+            <div className="mt-24 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
+              <div className="font-mono text-xs text-white/40">
+                © 2026 Yash Rohilla. Designed with Scandinavian Halden Editorial Aesthetic.
               </div>
-            </div>
-
-            {/* 10th */}
-            <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-xl transition-all hover:border-white/20">
-              <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-                <div>
-                  <h3 className="font-display text-base font-bold text-white">Secondary School – X (CBSE)</h3>
-                  <div className="text-sm text-white/60">S D Memorial Senior Secondary School, Haryana</div>
-                </div>
-
-                <div className="flex items-center gap-3 text-xs font-mono">
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-white/90 font-bold">
-                    85%
-                  </span>
-                  <span className="text-white/50">2021</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Education Campus Visual */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-2.5 backdrop-blur-xl">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/60">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1000&q=80"
-                  alt="Modern Academic Campus Environment"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#05070d] via-black/30 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-white/15 bg-black/75 p-3.5 backdrop-blur-md">
-                  <div className="font-heading text-xs font-bold text-cyan-400">Bennett University (Times Group)</div>
-                  <div className="text-xs text-white/70 mt-0.5">School of Computer Science Engineering &amp; Technology</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="relative z-10 mx-auto max-w-7xl px-6 py-28 border-t border-white/5">
-        <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-white/[0.06] to-transparent p-10 sm:p-16 backdrop-blur-2xl">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 font-heading text-xs font-bold uppercase tracking-widest text-cyan-400">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>// 06. Get In Touch</span>
-            </div>
-            <h2 className="mt-4 font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              Let&apos;s build scalable software together.
-            </h2>
-            <p className="mt-4 text-base text-white/70">
-              Whether you are looking for a dedicated full-stack developer, have backend engineering
-              opportunities, or want to discuss a project — I would love to connect.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href={`mailto:${email}`}
-                className="group flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-400 px-6 py-3 font-heading text-sm font-bold text-black transition-all hover:shadow-[0_0_24px_rgba(34,211,238,0.5)] hover:scale-105"
-              >
-                <Mail className="h-4 w-4" />
-                <span>Email: {email}</span>
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
 
               <button
-                onClick={handleCopyEmail}
-                className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-heading text-sm font-semibold text-white transition-all hover:border-white/30 hover:bg-white/10"
+                onClick={scrollToTop}
+                className="group flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 font-mono text-xs text-white/60 transition-all hover:border-white/40 hover:text-white"
               >
-                {copied ? (
-                  <>
-                    <Check className="h-4 w-4 text-emerald-400" />
-                    <span>Copied Email!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-4 w-4 text-white/60" />
-                    <span>Copy Email</span>
-                  </>
-                )}
+                <span>Back to Top</span>
+                <ArrowUp className="h-3 w-3 transition-transform group-hover:-translate-y-0.5" />
               </button>
-
-              <a
-                href={`tel:${phone}`}
-                className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-heading text-sm font-semibold text-white transition-all hover:border-white/30 hover:bg-white/10"
-              >
-                <Phone className="h-4 w-4 text-cyan-400" />
-                <span>{phone}</span>
-              </a>
             </div>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-xs text-white/40 sm:flex-row">
-          <div>© 2026 Yash Rohilla • Computer Science Student &amp; Developer.</div>
-
-          <button
-            onClick={scrollToTop}
-            className="group flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 font-heading text-xs text-white/60 transition-all hover:border-white/30 hover:text-white"
-          >
-            <span>Back to Top</span>
-            <ArrowUp className="h-3 w-3 transition-transform group-hover:-translate-y-0.5" />
-          </button>
-        </div>
-      </section>
+        </section>
+      </main>
     </div>
+  )
+}
+
+function ArrowDownIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 5v14" />
+      <path d="m19 12-7 7-7-7" />
+    </svg>
   )
 }
