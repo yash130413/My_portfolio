@@ -176,23 +176,36 @@ export default function PortfolioMain() {
   const [soundEnabled, setSoundEnabled] = useState(false)
   const [currentTime, setCurrentTime] = useState("")
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const workContainerRef = React.useRef<HTMLDivElement>(null)
 
   const email = "yashrohilla1204@gmail.com"
   const phone = "+91 9354139378"
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!workContainerRef.current) return
-      const rect = workContainerRef.current.getBoundingClientRect()
-      const totalScrollable = workContainerRef.current.offsetHeight - window.innerHeight
-      if (totalScrollable <= 0) return
+    let ticking = false
 
-      // Calculate vertical scroll progress through the pinned work section (0 to 1)
-      const currentScroll = -rect.top
-      const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 0.999)
-      const nextIndex = Math.floor(progress * PROJECTS.length)
-      setActiveProjectIndex(nextIndex)
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (workContainerRef.current) {
+            const rect = workContainerRef.current.getBoundingClientRect()
+            const totalScrollable = workContainerRef.current.offsetHeight - window.innerHeight
+            if (totalScrollable > 0) {
+              const currentScroll = -rect.top
+              const rawProgress = Math.min(Math.max(currentScroll / totalScrollable, 0), 0.999)
+              setScrollProgress(rawProgress)
+              
+              const numProjects = PROJECTS.length
+              const step = 1 / numProjects
+              const idx = Math.min(Math.floor(rawProgress / step), numProjects - 1)
+              setActiveProjectIndex(idx)
+            }
+          }
+          ticking = false
+        })
+        ticking = true
+      }
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -409,10 +422,10 @@ export default function PortfolioMain() {
           id="work"
           ref={workContainerRef}
           className="relative border-t border-white/10"
-          style={{ height: `${PROJECTS.length * 110}vh` }}
+          style={{ height: `${PROJECTS.length * 160}vh` }}
         >
           {/* Sticky Container pinned during vertical scrolling */}
-          <div className="sticky top-0 flex h-screen w-full flex-col justify-between overflow-hidden px-6 py-20 sm:px-10 lg:py-24">
+          <div className="sticky top-0 flex h-screen w-full flex-col justify-between overflow-hidden px-6 py-16 sm:px-10 lg:py-20">
             <div className="mx-auto w-full max-w-7xl">
               {/* Header & Slide Counter */}
               <div className="mb-8 flex flex-col justify-between gap-4 border-b border-white/10 pb-6 sm:flex-row sm:items-end">
@@ -452,36 +465,52 @@ export default function PortfolioMain() {
                 </div>
               </div>
 
-              {/* Stack of Cards with Vertical-to-Fade/Slide Animation */}
+              {/* Stack of Cards with Parallax Layering & Vertical-to-Fade Animation */}
               <div className="relative min-h-[500px] w-full">
                 {PROJECTS.map((proj, idx) => {
                   const isActive = activeProjectIndex === idx
                   const isPast = activeProjectIndex > idx
 
+                  // Continuous parallax offset based on scroll progress
+                  const projectProgress = (scrollProgress * PROJECTS.length) - idx
+                  // -1 (entering) to 0 (focused) to +1 (exiting)
+                  const clampedOffset = Math.max(-1, Math.min(1, projectProgress))
+                  const parallaxImageY = clampedOffset * -35 // Image moves subtly opposite to scroll
+                  const parallaxTextY = clampedOffset * -15 // Text shifts subtly for depth separation
+
                   return (
                     <article
                       key={proj.title}
-                      className={`group absolute inset-0 overflow-hidden rounded-3xl border bg-[#0e0d0f] shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      className={`group absolute inset-0 overflow-hidden rounded-3xl border bg-[#0e0d0f] shadow-2xl transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                         isActive
-                          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto border-[#2176ff]/60 shadow-[0_0_60px_rgba(33,118,255,0.18)] z-20"
+                          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto border-[#2176ff]/60 shadow-[0_0_70px_rgba(33,118,255,0.22)] z-20"
                           : isPast
-                          ? "opacity-0 -translate-y-8 scale-95 pointer-events-none border-white/5 z-10"
-                          : "opacity-0 translate-y-8 scale-95 pointer-events-none border-white/5 z-0"
+                          ? "opacity-0 -translate-y-16 scale-[0.93] pointer-events-none border-white/5 z-10"
+                          : "opacity-0 translate-y-16 scale-[0.93] pointer-events-none border-white/5 z-0"
                       }`}
                     >
                       <div className="grid h-full lg:grid-cols-12 min-h-[500px]">
-                        {/* Project Visual / Mockup */}
+                        {/* Project Visual / Mockup with Parallax Image Depth */}
                         <div className="relative aspect-[16/10] overflow-hidden bg-black/60 lg:aspect-auto lg:col-span-7">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={proj.image}
                             alt={proj.title}
-                            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            style={{
+                              transform: `translate3d(0, ${parallaxImageY}px, 0) scale(1.08)`,
+                              transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                            }}
+                            className="h-full w-full object-cover will-change-transform group-hover:scale-110"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#0e0d0f] via-transparent to-transparent opacity-80" />
 
-                          {/* Corner Project Number */}
-                          <div className="absolute top-6 left-6 flex items-baseline gap-2">
+                          {/* Corner Project Number with Floating Parallax */}
+                          <div
+                            style={{
+                              transform: `translate3d(0, ${parallaxTextY * 0.8}px, 0)`,
+                            }}
+                            className="absolute top-6 left-6 flex items-baseline gap-2 transition-transform duration-300"
+                          >
                             <span className="font-display text-4xl font-extrabold text-white drop-shadow-md">
                               {proj.number}
                             </span>
@@ -489,14 +518,24 @@ export default function PortfolioMain() {
                           </div>
 
                           {/* Stat Badge */}
-                          <div className="absolute bottom-6 left-6 rounded-2xl border border-white/15 bg-black/75 px-4 py-2.5 backdrop-blur-xl">
+                          <div
+                            style={{
+                              transform: `translate3d(0, ${parallaxTextY * 0.5}px, 0)`,
+                            }}
+                            className="absolute bottom-6 left-6 rounded-2xl border border-white/15 bg-black/75 px-4 py-2.5 backdrop-blur-xl transition-transform duration-300"
+                          >
                             <div className="font-display text-2xl font-bold text-[#2176ff]">{proj.metric}</div>
                             <div className="font-mono text-[10px] text-white/70">{proj.metricLabel}</div>
                           </div>
                         </div>
 
-                        {/* Project Information */}
-                        <div className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-5">
+                        {/* Project Information with Depth Offset */}
+                        <div
+                          style={{
+                            transform: `translate3d(0, ${parallaxTextY}px, 0)`,
+                          }}
+                          className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-5 transition-transform duration-300"
+                        >
                           <div>
                             <div className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
                               {proj.category}
