@@ -320,7 +320,7 @@ export default function PortfolioMain() {
 
             {/* Lower Hero Split: Manifesto & Core Metrics */}
             <div className="mt-14 grid gap-10 border-t border-white/10 pt-10 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-7">
+              <div className="lg:col-span-6">
                 <p className="font-sans text-xl leading-relaxed font-light text-[#edf5fc]/85 sm:text-2xl">
                   Engineering high-concurrency web systems, real-time architectures, and frictionless digital products.
                   Bridging disciplined system design with speed, resilience, and micro-interaction polish.
@@ -354,27 +354,27 @@ export default function PortfolioMain() {
               </div>
 
               {/* Halden Stat Numbers */}
-              <div className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4 lg:col-span-5 lg:gap-x-6">
-                <div className="border-l border-white/10 pl-4 sm:pl-5">
-                  <div className="font-display text-4xl sm:text-3xl xl:text-4xl font-extrabold text-white tracking-normal">8.22</div>
+              <div className="flex flex-wrap items-center gap-6 lg:col-span-6 lg:justify-end xl:gap-8">
+                <div className="border-l border-white/15 pl-4 pr-2">
+                  <div className="font-heading text-3xl sm:text-4xl font-bold tracking-tight text-white">8.22</div>
                   <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
                     CGPA • Bennett
                   </div>
                 </div>
-                <div className="border-l border-white/10 pl-4 sm:pl-5">
-                  <div className="font-display text-4xl sm:text-3xl xl:text-4xl font-extrabold text-[#2176ff] tracking-normal">300+</div>
+                <div className="border-l border-white/15 pl-4 pr-2">
+                  <div className="font-heading text-3xl sm:text-4xl font-bold tracking-tight text-[#2176ff]">300+</div>
                   <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
                     DSA Solved
                   </div>
                 </div>
-                <div className="border-l border-white/10 pl-4 sm:pl-5">
-                  <div className="font-display text-4xl sm:text-3xl xl:text-4xl font-extrabold text-white tracking-normal">03</div>
+                <div className="border-l border-white/15 pl-4 pr-2">
+                  <div className="font-heading text-3xl sm:text-4xl font-bold tracking-tight text-white">03</div>
                   <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
                     Flagship Builds
                   </div>
                 </div>
-                <div className="border-l border-white/10 pl-4 sm:pl-5">
-                  <div className="font-display text-4xl sm:text-3xl xl:text-4xl font-extrabold text-emerald-400 tracking-normal">99.9%</div>
+                <div className="border-l border-white/15 pl-4 pr-2">
+                  <div className="font-heading text-3xl sm:text-4xl font-bold tracking-tight text-emerald-400">99.9%</div>
                   <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[#9a9a9a]">
                     Cloud Uptime
                   </div>
@@ -388,18 +388,13 @@ export default function PortfolioMain() {
         <section id="work" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
           <div className="mx-auto max-w-7xl">
             {/* Section Header */}
-            <div className="mb-16 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-              <div>
-                <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
-                  // 01. Portfolio Index
-                </span>
-                <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl">
-                  Selected <span className="text-[#2176ff]">Work</span>
-                </h2>
-              </div>
-              <p className="max-w-md font-sans text-sm font-light text-[#9a9a9a]">
-                Production systems, high-speed interfaces, and automated rule engines engineered with Next.js, Node, and AWS.
-              </p>
+            <div className="mb-16">
+              <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                // 01. Portfolio Index
+              </span>
+              <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl">
+                Selected <span className="text-[#2176ff]">Work</span>
+              </h2>
             </div>
 
             {/* Halden Project Cards Stack */}
@@ -729,7 +724,7 @@ export default function PortfolioMain() {
                   </div>
                   <div>
                     <div className="text-[11px] font-mono text-white/40 uppercase">Availability</div>
-                    <div className="font-heading text-base text-emerald-400 font-semibold">Immediate for 2025/2026 roles</div>
+                    <div className="font-heading text-base text-emerald-400 font-semibold">Immediate for 2026/2027 roles</div>
                   </div>
                 </div>
 
@@ -763,7 +758,7 @@ export default function PortfolioMain() {
             {/* Editorial Footer Bottom Bar */}
             <div className="mt-24 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
               <div className="font-mono text-xs text-white/40">
-                © 2026 Yash Rohilla. Designed with Scandinavian Halden Editorial Aesthetic.
+                © 2026 Yash Rohilla. All rights reserved.
               </div>
 
               <button
