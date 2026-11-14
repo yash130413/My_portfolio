@@ -21,6 +21,7 @@ import {
   Clock,
   ShieldCheck,
   CheckCircle2,
+  GraduationCap,
 } from "lucide-react"
 
 // Social / Brand Icons
@@ -627,153 +628,82 @@ export default function PortfolioMain() {
           </div>
         </section>
 
-        {/* Education & Academic History Section (Cinematic Visual Cards with Ambient Glow) */}
-        <section id="education" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32 overflow-hidden">
-          {/* Ambient Lighting Accents */}
-          <div className="pointer-events-none absolute top-1/4 right-0 h-[450px] w-[450px] rounded-full bg-[#2176ff]/10 blur-[140px]" />
-          <div className="pointer-events-none absolute bottom-10 left-10 h-[350px] w-[350px] rounded-full bg-emerald-500/8 blur-[120px]" />
-
-          <div className="mx-auto max-w-7xl relative z-10">
-            <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
-              {/* Left Column: Heading & Highlight Metric Cards */}
-              <div className="lg:col-span-5 lg:sticky lg:top-28">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#2176ff]/30 bg-[#2176ff]/10 px-3.5 py-1 font-mono text-[11px] uppercase tracking-widest text-[#5c9bff]">
-                  <GraduationCap className="h-3.5 w-3.5 text-[#2176ff]" />
-                  <span>02. Academic Foundation</span>
-                </div>
-                <h2 className="mt-4 font-display text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white leading-[1.05]">
+        {/* Education & Academic History Section */}
+        <section id="education" className="relative border-t border-white/10 px-6 py-24 sm:px-10 lg:py-32">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-12 lg:grid-cols-12">
+              <div className="lg:col-span-5">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                  // 02. Academic Background
+                </span>
+                <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl">
                   Education &amp; <br />
-                  <span className="bg-gradient-to-r from-[#2176ff] via-[#5c9bff] to-white bg-clip-text text-transparent">
-                    Core Pedigree
-                  </span>
+                  <span className="text-[#2176ff]">Foundation</span>
                 </h2>
                 <p className="mt-4 max-w-md font-sans text-sm leading-relaxed text-[#9a9a9a]">
-                  Rigorous computer science curriculum, strong mathematical problem-solving foundation, and consistent academic distinction.
+                  Rigorous computer science curriculum, data structures &amp; algorithms foundation, and high academic performance.
                 </p>
 
-                {/* Animated Quick Stat Glass Cards */}
+                {/* Quick Academic Metrics */}
                 <div className="mt-10 grid grid-cols-2 gap-4">
-                  <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0c0b0f]/80 p-5 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[10px] uppercase text-[#9a9a9a]">B.TECH CGPA</span>
-                      <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]" />
-                    </div>
-                    <div className="mt-2 font-display text-3xl sm:text-4xl font-extrabold text-emerald-400">8.22</div>
-                    <div className="mt-1 font-mono text-[11px] text-white/60">Bennett University</div>
+                  <div className="rounded-2xl border border-white/10 bg-[#0e0d0f] p-5">
+                    <div className="font-mono text-[10px] uppercase text-[#9a9a9a]">Undergraduate CGPA</div>
+                    <div className="mt-1 font-display text-3xl font-extrabold text-emerald-400">8.22</div>
+                    <div className="mt-1 font-mono text-[10px] text-white/50">Bennett University</div>
                   </div>
-
-                  <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0c0b0f]/80 p-5 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-[#2176ff]/50 hover:shadow-[0_0_30px_rgba(33,118,255,0.15)]">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[10px] uppercase text-[#9a9a9a]">CLASS XII SCORE</span>
-                      <span className="h-2 w-2 rounded-full bg-[#2176ff] shadow-[0_0_8px_#2176ff]" />
-                    </div>
-                    <div className="mt-2 font-display text-3xl sm:text-4xl font-extrabold text-[#2176ff]">80%</div>
-                    <div className="mt-1 font-mono text-[11px] text-white/60">CBSE Science</div>
+                  <div className="rounded-2xl border border-white/10 bg-[#0e0d0f] p-5">
+                    <div className="font-mono text-[10px] uppercase text-[#9a9a9a]">Class XII Score</div>
+                    <div className="mt-1 font-display text-3xl font-extrabold text-[#2176ff]">80%</div>
+                    <div className="mt-1 font-mono text-[10px] text-white/50">CBSE Board</div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column: High-Impact Visual Education Cards */}
-              <div className="space-y-8 lg:col-span-7">
-                {/* 1. Bennett University Card */}
-                <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0e0d12] via-[#0a090c] to-[#070608] p-8 shadow-2xl transition-all duration-500 hover:border-[#2176ff]/60 hover:shadow-[0_0_50px_rgba(33,118,255,0.2)]">
-                  {/* Subtle Top Accent Beam */}
-                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#2176ff] to-transparent opacity-80" />
-
-                  <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-6">
+              {/* Education Cards */}
+              <div className="space-y-6 lg:col-span-7">
+                {/* Bennett University */}
+                <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 transition-all hover:border-[#2176ff]/50">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
                     <div>
-                      <div className="flex items-center gap-2 font-mono text-xs text-[#2176ff] uppercase tracking-wider">
-                        <span className="h-2 w-2 rounded-full bg-[#2176ff] animate-pulse" />
-                        <span>Undergraduate Degree • In Progress</span>
-                      </div>
-                      <h3 className="mt-2 font-display text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#5c9bff] transition-colors">
-                        Bennett University
-                      </h3>
-                      <div className="mt-1 font-heading text-sm font-semibold text-white/80">
-                        B.Tech in Computer Science &amp; Engineering
-                      </div>
+                      <div className="font-mono text-[11px] text-[#2176ff] uppercase tracking-wider">Undergraduate Degree</div>
+                      <h3 className="mt-1 font-display text-2xl font-bold text-white">Bennett University</h3>
+                      <div className="font-heading text-sm text-white/80">B.Tech in Computer Science &amp; Engineering</div>
                     </div>
-
-                    <div className="flex flex-col items-end gap-1.5 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-2.5 backdrop-blur-md">
-                      <span className="font-display text-lg font-bold text-emerald-400">CGPA 8.22</span>
-                      <span className="font-mono text-[11px] text-white/50">2024 – 2028</span>
+                    <div className="text-right">
+                      <div className="font-mono text-xs font-semibold text-emerald-400">CGPA: 8.22</div>
+                      <div className="font-mono text-xs text-[#9a9a9a]">2024 – 2028</div>
                     </div>
                   </div>
 
-                  <p className="mt-6 font-sans text-xs sm:text-sm leading-relaxed text-[#9a9a9a]">
-                    Specializing in high-performance distributed systems, data structures &amp; algorithms, database architectures, and full-stack web engineering.
+                  <p className="mt-6 font-sans text-sm leading-relaxed text-[#9a9a9a]">
+                    Core coursework: Data Structures &amp; Algorithms, Object-Oriented Programming, Database Management Systems, Computer Networks, and Full-Stack Engineering.
                   </p>
 
-                  {/* Highlights Grid */}
-                  <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
-                    {[
-                      "Data Structures & Algorithms",
-                      "Database Management (SQL & NoSQL)",
-                      "Object-Oriented System Design",
-                      "Computer Networks & Cloud Systems",
-                    ].map((course, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center gap-2.5 rounded-xl border border-white/5 bg-white/[0.02] px-3.5 py-2.5 transition-all duration-300 hover:border-[#2176ff]/40 hover:bg-[#2176ff]/5"
-                      >
-                        <CheckCircle2 className="h-4 w-4 shrink-0 text-[#2176ff]" />
-                        <span className="font-mono text-xs text-white/80">{course}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Badges */}
-                  <div className="mt-6 flex flex-wrap gap-2 border-t border-white/5 pt-5">
-                    {["C++", "Java", "Python", "Full-Stack Web", "Algorithms", "System Architecture"].map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[10px] text-white/70 transition-colors hover:border-[#2176ff]/40 hover:text-white"
-                      >
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {["Data Structures", "Algorithms", "System Design", "Cloud Systems", "Web Engineering"].map((tag) => (
+                      <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] text-white/60">
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                {/* 2. S D Memorial Senior Secondary School Card */}
-                <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0e0d12] via-[#0a090c] to-[#070608] p-8 shadow-2xl transition-all duration-500 hover:border-emerald-500/50 hover:shadow-[0_0_50px_rgba(16,185,129,0.15)]">
-                  {/* Top Beam */}
-                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-70" />
-
-                  <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-6">
+                {/* S D Memorial Senior Secondary School */}
+                <div className="rounded-3xl border border-white/10 bg-[#0e0d0f] p-8 transition-all hover:border-white/30">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
                     <div>
-                      <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 uppercase tracking-wider">
-                        <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                        <span>High School Education • Completed</span>
-                      </div>
-                      <h3 className="mt-2 font-display text-xl sm:text-2xl font-extrabold text-white group-hover:text-emerald-300 transition-colors">
-                        S D Memorial Senior Secondary School
-                      </h3>
-                      <div className="mt-1 font-heading text-sm font-semibold text-white/80">
-                        CBSE Higher Secondary Education • Haryana
-                      </div>
+                      <div className="font-mono text-[11px] text-[#2176ff] uppercase tracking-wider">High School</div>
+                      <h3 className="mt-1 font-display text-xl font-bold text-white">S D Memorial Senior Secondary School, Haryana</h3>
+                      <div className="font-heading text-sm text-white/80">CBSE Higher Secondary Education</div>
                     </div>
-
-                    <div className="flex flex-col items-end gap-1.5 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-2.5 backdrop-blur-md">
-                      <span className="font-display text-lg font-bold text-[#2176ff]">80% Score</span>
-                      <span className="font-mono text-[11px] text-white/50">CBSE Board</span>
+                    <div className="text-right">
+                      <div className="font-mono text-xs font-semibold text-emerald-400">Grade: 80%</div>
+                      <div className="font-mono text-xs text-[#9a9a9a]">CBSE Board</div>
                     </div>
                   </div>
-
-                  <p className="mt-6 font-sans text-xs sm:text-sm leading-relaxed text-[#9a9a9a]">
-                    Completed senior secondary education with strong focus in Non-Medical Sciences — Physics, Chemistry, and Advanced Mathematics, setting the analytical baseline for computer science.
+                  <p className="mt-4 font-sans text-xs leading-relaxed text-[#9a9a9a]">
+                    Specialized in Physics, Chemistry, and Advanced Mathematics with focus on science and analytical problem solving.
                   </p>
-
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {["Physics", "Chemistry", "Mathematics", "Analytical Problem Solving", "Computer Science"].map((sub) => (
-                      <span
-                        key={sub}
-                        className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1 font-mono text-[10px] text-white/70 transition-colors hover:border-emerald-400/40 hover:text-white"
-                      >
-                        {sub}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>
