@@ -175,9 +175,29 @@ export default function PortfolioMain() {
   const [activeTab, setActiveTab] = useState("all")
   const [soundEnabled, setSoundEnabled] = useState(false)
   const [currentTime, setCurrentTime] = useState("")
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0)
+  const workContainerRef = React.useRef<HTMLDivElement>(null)
 
   const email = "yashrohilla1204@gmail.com"
   const phone = "+91 9354139378"
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!workContainerRef.current) return
+      const rect = workContainerRef.current.getBoundingClientRect()
+      const totalScrollable = workContainerRef.current.offsetHeight - window.innerHeight
+      if (totalScrollable <= 0) return
+
+      // Calculate vertical scroll progress through the pinned work section (0 to 1)
+      const currentScroll = -rect.top
+      const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 0.999)
+      const nextIndex = Math.floor(progress * PROJECTS.length)
+      setActiveProjectIndex(nextIndex)
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   useEffect(() => {
     const updateTime = () => {
@@ -384,128 +404,167 @@ export default function PortfolioMain() {
           </div>
         </section>
 
-        {/* Selected Work Section (Horizontal Scroll Carousel / Sticky Pin Showcase) */}
-        <section id="work" className="relative border-t border-white/10 py-24 lg:py-32">
-          <div className="mx-auto max-w-7xl px-6 sm:px-10">
-            {/* Section Header with Carousel Navigation Indicator */}
-            <div className="mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-              <div>
-                <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
-                  // 01. Portfolio Index
-                </span>
-                <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-white sm:text-6xl">
-                  Selected <span className="text-[#2176ff]">Work</span>
-                </h2>
-              </div>
-              <div className="hidden items-center gap-3 font-mono text-xs text-white/50 sm:flex">
-                <span>SCROLL HORIZONTALLY</span>
-                <ArrowRight className="h-4 w-4 animate-pulse text-[#2176ff]" />
-              </div>
-            </div>
-          </div>
+        {/* Selected Work Section (Scroll-Driven Vertical Pin to Fade / Slide Transition) */}
+        <section
+          id="work"
+          ref={workContainerRef}
+          className="relative border-t border-white/10"
+          style={{ height: `${PROJECTS.length * 110}vh` }}
+        >
+          {/* Sticky Container pinned during vertical scrolling */}
+          <div className="sticky top-0 flex h-screen w-full flex-col justify-between overflow-hidden px-6 py-20 sm:px-10 lg:py-24">
+            <div className="mx-auto w-full max-w-7xl">
+              {/* Header & Slide Counter */}
+              <div className="mb-8 flex flex-col justify-between gap-4 border-b border-white/10 pb-6 sm:flex-row sm:items-end">
+                <div>
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                    // 01. Portfolio Index
+                  </span>
+                  <h2 className="mt-2 font-display text-3xl font-bold uppercase tracking-tight text-white sm:text-5xl">
+                    Selected <span className="text-[#2176ff]">Work</span>
+                  </h2>
+                </div>
 
-          {/* Slide-by-Slide Horizontal Snap Carousel */}
-          <div className="relative w-full">
-            <div className="flex gap-6 overflow-x-auto px-6 pb-8 pt-2 scrollbar-none sm:px-10 lg:gap-8 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none]">
-              {PROJECTS.map((proj, idx) => (
-                <article
-                  key={proj.title}
-                  className="group relative flex-none w-[88vw] sm:w-[75vw] lg:w-[65vw] max-w-5xl snap-center overflow-hidden rounded-3xl border border-white/10 bg-[#0e0d0f] shadow-2xl transition-all duration-500 hover:border-[#2176ff]/60 hover:shadow-[0_0_60px_rgba(33,118,255,0.15)]"
-                >
-                  <div className="grid lg:grid-cols-12 min-h-[500px]">
-                    {/* Project Visual / Mockup */}
-                    <div className="relative aspect-[16/10] overflow-hidden bg-black/60 lg:aspect-auto lg:col-span-7">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={proj.image}
-                        alt={proj.title}
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                {/* Progress Indicators */}
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-2">
+                    {PROJECTS.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => {
+                          if (!workContainerRef.current) return
+                          const sectionTop = workContainerRef.current.offsetTop
+                          const step = (workContainerRef.current.offsetHeight - window.innerHeight) / PROJECTS.length
+                          window.scrollTo({ top: sectionTop + i * step + 10, behavior: "smooth" })
+                        }}
+                        className={`h-2 transition-all duration-500 rounded-full ${
+                          activeProjectIndex === i
+                            ? "w-10 bg-[#2176ff] shadow-[0_0_12px_#2176ff]"
+                            : "w-2.5 bg-white/20 hover:bg-white/40"
+                        }`}
+                        aria-label={`Go to project ${i + 1}`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0e0d0f] via-transparent to-transparent opacity-80" />
-
-                      {/* Halden Corner Project Number & Slide Count */}
-                      <div className="absolute top-6 left-6 flex items-baseline gap-2">
-                        <span className="font-display text-3xl font-extrabold text-white drop-shadow-md">
-                          {proj.number}
-                        </span>
-                        <span className="font-mono text-xs text-white/40">/ 0{PROJECTS.length}</span>
-                      </div>
-
-                      {/* Stat Badge */}
-                      <div className="absolute bottom-6 left-6 rounded-2xl border border-white/15 bg-black/75 px-4 py-2.5 backdrop-blur-xl">
-                        <div className="font-display text-2xl font-bold text-[#2176ff]">{proj.metric}</div>
-                        <div className="font-mono text-[10px] text-white/70">{proj.metricLabel}</div>
-                      </div>
-                    </div>
-
-                    {/* Project Information */}
-                    <div className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-5">
-                      <div>
-                        <div className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
-                          {proj.category}
-                        </div>
-                        <h3 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                          {proj.title}
-                        </h3>
-                        <p className="mt-1 font-heading text-sm font-medium text-white/60">
-                          {proj.subtitle}
-                        </p>
-
-                        <p className="mt-5 font-sans text-xs leading-relaxed text-[#9a9a9a]">
-                          {proj.description}
-                        </p>
-
-                        {/* Architectural Highlights */}
-                        <ul className="mt-5 space-y-2">
-                          {proj.highlights.map((h, i) => (
-                            <li key={i} className="flex items-start gap-2.5 text-xs text-white/80">
-                              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
-                              <span>{h}</span>
-                            </li>
-                          ))}
-                        </ul>
-
-                        {/* Tech Tag Pills */}
-                        <div className="mt-6 flex flex-wrap gap-1.5">
-                          {proj.tags.map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[10px] text-white/70"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Action Links */}
-                      <div className="mt-8 flex items-center gap-4 border-t border-white/10 pt-5">
-                        {proj.liveUrl && (
-                          <a
-                            href={proj.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/link inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 font-heading text-xs font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white"
-                          >
-                            <span>Live App</span>
-                            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                          </a>
-                        )}
-
-                        <a
-                          href={proj.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/90 transition-all hover:border-white/40 hover:bg-white/10"
-                        >
-                          <GithubIcon className="h-3.5 w-3.5" />
-                          <span>Code</span>
-                        </a>
-                      </div>
-                    </div>
+                    ))}
                   </div>
-                </article>
-              ))}
+                  <span className="font-mono text-xs text-white/50">
+                    0{activeProjectIndex + 1} / 0{PROJECTS.length}
+                  </span>
+                </div>
+              </div>
+
+              {/* Stack of Cards with Vertical-to-Fade/Slide Animation */}
+              <div className="relative min-h-[500px] w-full">
+                {PROJECTS.map((proj, idx) => {
+                  const isActive = activeProjectIndex === idx
+                  const isPast = activeProjectIndex > idx
+
+                  return (
+                    <article
+                      key={proj.title}
+                      className={`group absolute inset-0 overflow-hidden rounded-3xl border bg-[#0e0d0f] shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                        isActive
+                          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto border-[#2176ff]/60 shadow-[0_0_60px_rgba(33,118,255,0.18)] z-20"
+                          : isPast
+                          ? "opacity-0 -translate-y-8 scale-95 pointer-events-none border-white/5 z-10"
+                          : "opacity-0 translate-y-8 scale-95 pointer-events-none border-white/5 z-0"
+                      }`}
+                    >
+                      <div className="grid h-full lg:grid-cols-12 min-h-[500px]">
+                        {/* Project Visual / Mockup */}
+                        <div className="relative aspect-[16/10] overflow-hidden bg-black/60 lg:aspect-auto lg:col-span-7">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={proj.image}
+                            alt={proj.title}
+                            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0e0d0f] via-transparent to-transparent opacity-80" />
+
+                          {/* Corner Project Number */}
+                          <div className="absolute top-6 left-6 flex items-baseline gap-2">
+                            <span className="font-display text-4xl font-extrabold text-white drop-shadow-md">
+                              {proj.number}
+                            </span>
+                            <span className="font-mono text-xs text-white/40">/ 0{PROJECTS.length}</span>
+                          </div>
+
+                          {/* Stat Badge */}
+                          <div className="absolute bottom-6 left-6 rounded-2xl border border-white/15 bg-black/75 px-4 py-2.5 backdrop-blur-xl">
+                            <div className="font-display text-2xl font-bold text-[#2176ff]">{proj.metric}</div>
+                            <div className="font-mono text-[10px] text-white/70">{proj.metricLabel}</div>
+                          </div>
+                        </div>
+
+                        {/* Project Information */}
+                        <div className="flex flex-col justify-between p-7 sm:p-10 lg:col-span-5">
+                          <div>
+                            <div className="font-mono text-xs uppercase tracking-widest text-[#2176ff]">
+                              {proj.category}
+                            </div>
+                            <h3 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                              {proj.title}
+                            </h3>
+                            <p className="mt-1 font-heading text-sm font-medium text-white/60">
+                              {proj.subtitle}
+                            </p>
+
+                            <p className="mt-4 font-sans text-xs leading-relaxed text-[#9a9a9a]">
+                              {proj.description}
+                            </p>
+
+                            {/* Highlights */}
+                            <ul className="mt-4 space-y-2">
+                              {proj.highlights.map((h, i) => (
+                                <li key={i} className="flex items-start gap-2.5 text-xs text-white/80">
+                                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2176ff]" />
+                                  <span>{h}</span>
+                                </li>
+                              ))}
+                            </ul>
+
+                            {/* Tech Tag Pills */}
+                            <div className="mt-5 flex flex-wrap gap-1.5">
+                              {proj.tags.map((t) => (
+                                <span
+                                  key={t}
+                                  className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[10px] text-white/70"
+                                >
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Action Links */}
+                          <div className="mt-6 flex items-center gap-4 border-t border-white/10 pt-5">
+                            {proj.liveUrl && (
+                              <a
+                                href={proj.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group/link inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 font-heading text-xs font-bold text-black transition-all hover:bg-[#2176ff] hover:text-white"
+                              >
+                                <span>Live Application</span>
+                                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                              </a>
+                            )}
+
+                            <a
+                              href={proj.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2 font-mono text-xs text-white/90 transition-all hover:border-white/40 hover:bg-white/10"
+                            >
+                              <GithubIcon className="h-3.5 w-3.5" />
+                              <span>Source Code</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </section>
