@@ -79,8 +79,8 @@ const FEATURED_PROJECTS: Project[] = [
     tags: ["Next.js", "NestJS", "TypeScript", "Supabase", "Rule Engine", "Tailwind CSS"],
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-    liveUrl: "https://github.com",
-    githubUrl: "https://github.com",
+    liveUrl: "https://ledgerly-93.vercel.app/",
+    githubUrl: "https://github.com/yash130413/Ledgerly",
   },
   {
     title: "PharmaConnect",
@@ -96,8 +96,8 @@ const FEATURED_PROJECTS: Project[] = [
     tags: ["React.js", "Node.js", "Express.js", "MongoDB", "AWS EC2", "Nginx", "REST APIs"],
     image:
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
-    liveUrl: "https://github.com",
-    githubUrl: "https://github.com",
+    liveUrl: "https://pharmaconnect1.vercel.app/",
+    githubUrl: "https://github.com/yash130413/PharmaConnect-1",
   },
   {
     title: "GeoSight",
@@ -113,7 +113,7 @@ const FEATURED_PROJECTS: Project[] = [
     tags: ["React.js", "Leaflet", "Flask (Python)", "Google Earth Engine", "GIS", "REST APIs"],
     image:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com/yash130413/GEOSIGHT",
   },
 ]
 
@@ -916,7 +916,7 @@ export default function PortfolioMain() {
 
         {/* Footer */}
         <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-xs text-white/40 sm:flex-row">
-          <div>© {new Date().getFullYear()} Yash Rohilla • Computer Science Student &amp; Developer.</div>
+          <div>© 2026 Yash Rohilla • Computer Science Student &amp; Developer.</div>
 
           <button
             onClick={scrollToTop}
